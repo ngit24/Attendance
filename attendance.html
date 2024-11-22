@@ -115,27 +115,9 @@
             gap: 10px;
         }
 
-       footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    background: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    font-weight: bold; /* Apply bold to all text inside the footer */
-}
+      /* Footer styling */
 
-footer span {
-    color: var(--primary-color);
-}
 
-         /* Target anchor text inside footer and make it bold */
-    footer a {
-        font-weight: bold; /* Makes the link text bold */
-    }
 
 .greeting-text {
     color: black; /* Black color for the greeting */
@@ -143,13 +125,22 @@ footer span {
     font-weight: 600;
 }
 
-..name-text {
+.name-text {
     color: #ff6347; /* Black color for the name */
     font-size: 1.8rem;
     font-weight: 700;
     font-family: inherit; /* Use the default font of the page */
 }
-
+/* Date and Time Styles */
+    .date-time {
+        position: fixed;
+        top: 5px;
+        right: 10px;
+        font-size: 1.5rem;
+        color: black;
+        font-family: inherit;
+        z-index: 10;
+    }
 
 
     </style>
@@ -165,12 +156,11 @@ footer span {
         <button id="cieButton" class="hidden" onclick="goToCIE()">Show CIE Marks</button>
     </div>
 
-   <footer>
-    Designed by <a href="https://www.instagram.com/vardn.19" target="_blank" style="color: #007bff; text-decoration: none;">Vardan</a>
-</footer>
+
 
 
     <script>
+    
         function goBack() {
             window.location.href = 'index.html';
         }
@@ -179,22 +169,29 @@ footer span {
             window.location.href = 'cie.html';  // Redirect to the CIE page
         }
 
-        // Fetch user name based on mobile number
-        async function fetchName() {
-            const mobileNumber = localStorage.getItem('mobileNumber');
-            if (!mobileNumber) return;
+     async function fetchName() {
+    const mobileNumber = localStorage.getItem('mobileNumber');
+    if (!mobileNumber) return;
 
-            try {
-                const response = await fetch(`https://nam969.89determined.workers.dev/?mobile_number=${mobileNumber}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch name');
-                }
-                const name = await response.text();
-                displayGreeting(name);
-            } catch (error) {
-                console.error("Error fetching name:", error);
-            }
+    try {
+        const response = await fetch(`https://nam969.89determined.workers.dev/?mobile_number=${mobileNumber}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch name');
         }
+        const name = await response.text();
+        displayGreeting(name);
+    } catch (error) {
+        console.error("Error fetching name:", error);
+        // Display the specific error message
+        const contentDiv = document.getElementById('content');
+        contentDiv.innerHTML = "<p>Incorrect Number, Go back and enter your parent's number.</p>";
+        
+        // Show the Go Back button
+        const backButton = document.getElementById('backButton');
+        backButton.classList.remove('hidden');
+    }
+}
+
 
         // Display the greeting based on the time of day
     function displayGreeting(name) {
@@ -294,12 +291,54 @@ footer span {
                 cieButton.classList.remove('hidden');
             } catch (error) {
                 console.error("Error fetching attendance:", error);
-                contentDiv.textContent = "Failed to load attendance data.";
+                contentDiv.textContent = "Incorrect Number, Go back and enter your parent's number";
             }
         }
 
         fetchName(); // Fetch name on page load
         fetchAttendance(); // Fetch attendance data
+        
+        
+
     </script>
+    
+    <!-- Footer HTML -->
+<div id="footer">
+    <p>Designed by <strong><a href="https://www.instagram.com/vardn.19" target="_blank">Vardan</a></strong></p>
+</div>
+
+<!-- Footer CSS -->
+<style>
+    /* Footer styling */
+   /* Footer styling */
+#footer {
+    position: relative; /* Change from fixed to relative */
+   
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #333; /* Dark gray color for text */
+    padding: 10px 0;
+    margin-top: 20px; /* Add space above the footer */
+}
+
+/* Styling for the strong tag (Vardan's name) */
+#footer strong {
+    color: #007BFF; /* Blue color for emphasis */
+}
+
+/* Styling for the link */
+#footer a {
+    color: #007BFF; /* Blue color for link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+</style>
+
 </body>
 </html>
