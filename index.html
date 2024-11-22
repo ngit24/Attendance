@@ -6,132 +6,146 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #1A73E8;
-            --secondary-color: #f9fbfd;
-            --accent-color: #4CAF50;
-            --text-color: #333;
-            --border-radius: 10px;
-            --button-hover: #0056b3;
-            --heading-font-size: 2.2rem;
-            --subheading-font-size: 1.5rem;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f4f6f9, #e9f0f8);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        h1 {
-            font-size: var(--heading-font-size);
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .container {
-            background: #fff;
-            padding: 40px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 8px 16px var(--shadow-color);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: var(--border-radius);
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            margin: 5px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        button:hover {
-            background: var(--button-hover);
-            transform: translateY(-2px);
-        }
-
-        .message {
-            color: #d32f2f;
-            font-size: 0.9rem;
-            margin-top: -10px;
-            margin-bottom: 15px;
-            display: none;
-        }
-
-       footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    background: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    font-weight: bold; /* Apply bold to all text inside the footer */
-}
-
-footer span {
-    color: var(--primary-color);
-}
-
-         /* Target anchor text inside footer and make it bold */
-    footer a {
-        font-weight: bold; /* Makes the link text bold */
+   <style>
+    :root {
+        --primary-color: #FF6347; /* Tomato red */
+        --secondary-color: #f9fbfd; /* Keeping secondary as is */
+        --accent-color: #4CAF50; /* Keeping accent as is */
+        --text-color: #333; /* Text color unchanged */
+        --border-radius: 10px;
+        --button-hover: #CC4F39; /* Darker tomato red for hover */
+        --heading-font-size: 2.2rem;
+        --subheading-font-size: 1.5rem;
+        --shadow-color: rgba(0, 0, 0, 0.1); /* Shadow color unchanged */
     }
 
-        /* Date and Time Styles */
-        .date-time {
-            position: fixed;
-            top: 5px;
-            right: 10px;
-            font-size: 0.9rem;
-            color: black;
-            font-family: inherit;
-            z-index: 10;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        height: 100%;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f4f6f9, #e9f0f8);
+        color: var(--text-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: var(--heading-font-size);
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    .container {
+        background: #fff;
+        padding: 40px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 8px 16px var(--shadow-color);
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+        margin-bottom: 20px; /* Added margin to separate from the footer */
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        margin-bottom: 20px;
+        transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+    }
+
+    button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: var(--border-radius);
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin: 5px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    button:hover {
+        background: var(--button-hover);
+        transform: translateY(-2px);
+    }
+
+    .message {
+        color: #d32f2f; /* Keeping error message color unchanged */
+        font-size: 0.9rem;
+        margin-top: -10px;
+        margin-bottom: 15px;
+        display: none;
+    }
+
+    /* Footer styling */
+    #footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 10px 0;
+        background-color: #FFFFFF; /* Light tomato tint */
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-size: 16px;
+        color: #BDC3C7; /* Tomato red footer text */
+    }
+
+    /* For better mobile experience */
+    @media (max-width: 600px) {
+        #footer {
+            font-size: 14px;
+            padding: 8px 0;
         }
-    </style>
+    }
+
+    /* Date and Time Styles */
+    .date-time {
+        position: fixed;
+        top: 5px;
+        right: 10px;
+        font-size: 1.5rem;
+        color: black;
+        font-family: inherit;
+        z-index: 10;
+    }
+
+    /* DM Button Styling */
+    .query-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .query-button button {
+        padding: 8px 16px; /* Reduced padding */
+        font-size: 14px; /* Smaller font size */
+        width: auto; /* Auto width to fit the content */
+    }
+</style>
+
 </head>
 
 <body>
     <div class="container">
-        <h1>Ready to check your attendance and grades? 🧐</h1>
+        <h1>Ready to check your attendance and grades? 📝</h1>
 
         <div>
             <input type="text" id="mobileNumber" placeholder="Enter parent's mobile number" maxlength="10"
@@ -142,18 +156,19 @@ footer span {
         <div>
             <button onclick="redirect('attendance')">View Attendance</button>
         </div>
+    </div>
 
-        <!-- Contact Me Button -->
-        <div>
-            <button onclick="window.open('https://www.instagram.com/vardn.19', '_blank')">Have any queries? DM Me</button>
-        </div>
+    <!-- Contact Me Button (Moved above footer) -->
+    <div class="query-button">
+        <button onclick="window.open('https://www.instagram.com/vardn.19', '_blank')">Have any queries? DM Me</button>
     </div>
     
     <div id="date-time" class="date-time"></div>
 
-    <footer>
-        Designed by <a href="https://www.instagram.com/vardn.19" target="_blank" style="color: #007bff; text-decoration: none;">Vardan</a>
-    </footer>
+    <!-- Footer -->
+    <div id="footer">
+        <p>Designed by <strong><a href="https://www.instagram.com/vardn.19" target="_blank" style="color: #FF6347; text-decoration: none;">Vardan</a></strong></p>
+    </div>
 
     <script>
         function updateDateTime() {
