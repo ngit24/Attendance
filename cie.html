@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CIE</title>
-    <style>
+<style>
     :root {
         --primary-color: #007BFF; /* Bright Blue */
         --secondary-color: #f9f9f9; /* Light Gray */
@@ -111,26 +111,7 @@
         }
     }
 
-   footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    background: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    font-weight: bold; /* Apply bold to all text inside the footer */
-}
 
-footer span {
-    color: var(--primary-color);
-}
-	     /* Target anchor text inside footer and make it bold */
-    footer a {
-        font-weight: bold; /* Makes the link text bold */
-    }
 
 
     /* Styling for the greeting */
@@ -141,23 +122,31 @@ footer span {
         margin-bottom: 15px;
         text-align: center;
     }
-	
-.greeting-text {
-    color: black; /* Black color for the greeting */
-    font-size: 1.5rem;
-    font-weight: 600;
-}
 
-.name-text {
-    color: #ff6347; /* Blue color for the name */
-    font-size: 1.8rem;
-    font-weight: 700;
-    font-family: inherit; /* Use the default font of the page */
-}
+    .greeting-text {
+        color: black; /* Black color for the greeting */
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
 
-
-
+    .name-text {
+        color: #ff6347; /* Tomato red color for the name */
+        font-size: 1.8rem;
+        font-weight: 700;
+        font-family: inherit; /* Use the default font of the page */
+    }
+    /* Date and Time Styles */
+    .date-time {
+        position: fixed;
+        top: 5px;
+        right: 10px;
+        font-size: 1.5rem;
+        color: black;
+        font-family: inherit;
+        z-index: 10;
+    }
 </style>
+
 </head>
 <body>
     <!-- Greeting section -->
@@ -168,12 +157,10 @@ footer span {
     </div>
     <button id="backButton" class="hidden" onclick="goBack()">Go Back</button>
 
-<footer>
-    Designed by <a href="https://www.instagram.com/vardn.19" target="_blank" style="color: #007bff; text-decoration: none;">Vardan</a>
-</footer>
 
 
     <script>
+    
         function goBack() {
             window.location.href = 'attendance.html';
         }
@@ -296,5 +283,42 @@ footer span {
         fetchName();
         fetchCIE();
     </script>
+  
+
+<!-- Footer HTML -->
+<div id="footer">
+    <p>Designed by <strong><a href="https://www.instagram.com/vardn.19" target="_blank">Vardan</a></strong></p>
+</div>
+
+<!-- Footer CSS -->
+<style>
+    /* Footer styling */
+    #footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        color: #333; /* Dark gray color for text */
+        padding: 10px 0;
+    }
+
+    /* Styling for the strong tag (Vardan's name) */
+    #footer strong {
+        color: #007BFF; /* Blue color for emphasis */
+    }
+
+    /* Styling for the link */
+    #footer a {
+        color: #007BFF; /* Blue color for link */
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    #footer a:hover {
+        text-decoration: underline; /* Underline on hover */
+    }
+</style>
+
 </body>
 </html>
