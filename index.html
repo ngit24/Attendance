@@ -257,6 +257,9 @@
 				<label for="mobile_number" style="font-size: 18px; color: #333;"></label>
 				<input type="text" id="mobile_number" name="mobile_number" placeholder="Enter your parent's mobile number" maxlength="10" required>
 				<button type="submit">Get Attendance</button>
+				
+<a href="https://www.instagram.com/vardan.19" target="_blank" style="color: tomato;">Have any queries? DM me</a>
+
 			</form>
 
 			<!-- Error message will show if mobile number is missing or there's an issue -->
@@ -276,8 +279,9 @@
 				<!-- Go Back button (hidden initially) -->
 				<button id="goBackButton" onclick="goBack()">Go Back</button>
 				<!-- Contact Me button (hidden initially) -->
-				<button id="contactMeButton" onclick="contactMe()">Contact Me</button>
+				<button id="contactMeButton" onclick="contactMe()">View CIE Marks</button>
 			</div>
+			
 		</div>
 
 		<script>
@@ -326,76 +330,59 @@
 
 
 
-	document.getElementById("attendanceForm").addEventListener("submit", function(event) {
-		event.preventDefault();
+	// Handle form submission
+document.getElementById("attendanceForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-		const mobileNumber = document.getElementById("mobile_number").value;
+    const mobileNumber = document.getElementById("mobile_number").value;
 
-		// Validate if the mobile number is exactly 10 digits
-		if (!mobileNumber || mobileNumber.length !== 10 || isNaN(mobileNumber)) {
-			document.getElementById('errorMessage').style.display = 'block';
-			document.getElementById('errorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
-			
-			// Hide the floating greeting when there's an error
-			document.getElementById('floatingGreeting').style.display = 'none';
-			return;
-		}
+    // Validate if the mobile number is exactly 10 digits
+    if (!mobileNumber || mobileNumber.length !== 10 || isNaN(mobileNumber)) {
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('errorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
+        return;
+    }
 
-		// Hide form and heading
-		document.querySelector('h1').style.display = 'none';
-		document.getElementById('attendanceForm').style.display = 'none';
+    // Store the mobile number in localStorage
+    localStorage.setItem('mobileNumber', mobileNumber);
 
-		// Clear previous results and error message
-		document.getElementById('attendanceResults').style.display = 'none';
-		document.getElementById('attendanceResults').innerHTML = "";
-		document.getElementById('errorMessage').style.display = 'none';
+    // Hide form and heading
+    document.querySelector('h1').style.display = 'none';
+    document.getElementById('attendanceForm').style.display = 'none';
 
-		// Show loading message
-		document.getElementById('loading').style.display = 'block';
+    // Clear previous results and error message
+    document.getElementById('attendanceResults').style.display = 'none';
+    document.getElementById('attendanceResults').innerHTML = "";
+    document.getElementById('errorMessage').style.display = 'none';
 
-		// First, fetch and display the user's name
-		fetchAndDisplayName(mobileNumber);
+    // Show loading message
+    document.getElementById('loading').style.display = 'block';
 
-		// Make the API request to fetch attendance results
-		fetch(`https://sanjaya969.89determined.workers.dev/?mobile_number=${mobileNumber}`)
-			.then(response => response.text()) // Getting HTML response
-			.then(html => {
-				// Check if the API response contains the specific error message
-				if (html.includes("Incorrect Number, Go back & Enter Your Parents Number.")) {
-					// Hide the greeting if the error message is found
-					document.getElementById('floatingGreeting').style.display = 'none';
-				}
+    // First, fetch and display the user's name
+    fetchAndDisplayName(mobileNumber);
 
-				// Hide loading and display results
-				document.getElementById('loading').style.display = 'none';
-				document.getElementById('attendanceResults').style.display = 'block';
-				document.getElementById('attendanceResults').innerHTML = html;
+    // Make the API request to fetch attendance results
+    fetch(`https://sanjaya969.89determined.workers.dev/?mobile_number=${mobileNumber}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('attendanceResults').style.display = 'block';
+            document.getElementById('attendanceResults').innerHTML = html;
 
-				// Show both Go Back and Contact Me buttons
-				document.getElementById('buttonContainer').style.display = 'flex';
-				// Hide the "Get Attendance" button
-				document.querySelector("button[type='submit']").style.display = 'none';
-
-				// Only display the floating greeting when there is no error
-				if (!html.includes("Incorrect Number, Go back & Enter Your Parents Number.")) {
-					document.getElementById('floatingGreeting').style.display = 'block';
-				}
-			})
-			.catch(error => {
-				// Handle any error (e.g., network failure)
-				document.getElementById('loading').style.display = 'none';
-				document.getElementById('errorMessage').style.display = 'block';
-				document.getElementById('errorMessage').textContent = 'Failed to retrieve attendance data.';
-				
-				// Hide the floating greeting in case of an error
-				document.getElementById('floatingGreeting').style.display = 'none';
-			});
-	});
+            // Show Go Back and CIE Marks buttons
+            document.getElementById('buttonContainer').style.display = 'flex';
+        })
+        .catch(error => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorMessage').textContent = 'Failed to retrieve attendance data.';
+        });
+});
 
 
 			// Function to open Instagram profile when Contact Me is clicked
 			function contactMe() {
-				window.open('https://www.instagram.com/vardn.19', '_blank');
+				window.open('cie.html');
 			}
 		</script>
 
