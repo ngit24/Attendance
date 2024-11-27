@@ -138,7 +138,7 @@
             }
 
             try {
-                const rollNumberResponse = await fetch(`https://roll.89determined.workers.dev/?mobile_number=${mobileNumber}`);
+                const rollNumberResponse = await fetch(`https://vardanapi3.userrr2203.workers.dev/?mobile_number=${mobileNumber}`);
                 const rollNumber = await rollNumberResponse.text().then(text => text.trim());
 
                 if (!rollNumber) {
