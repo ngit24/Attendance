@@ -383,6 +383,7 @@ footer span {
 
 
 <script>
+	
 
 async function fetchAttendance() {
     const rollno = document.getElementById('rollno').value;
@@ -523,6 +524,31 @@ function checkRollno() {
 
 document.getElementById('rollno').addEventListener('input', checkRollno);
 
+// Disable right-click (context menu)
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// Disable F12 and Ctrl + Shift + I (DevTools shortcut)
+document.addEventListener('keydown', function(event) {
+    // Check for F12 (DevTools) or Ctrl + Shift + I
+    if ((event.key === 'F12') || 
+        (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+        event.preventDefault();
+    }
+});
+
+// Detect if Developer Tools are opened and close the window
+(function() {
+    let devtools = /./;
+    devtools.toString = function() {
+        window.close(); // Attempt to close the window
+    };
+
+    setInterval(function() {
+        console.log('%c', devtools); // Trigger to check for DevTools
+    }, 1000);
+})();
 
 
 </script>
