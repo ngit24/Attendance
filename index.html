@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.95, maximum-scale=1.0, user-scalable=no">
 
-    <title>Attendance Viewer</title>
+    <title>NGIT Attendance Viewer</title>
   
    <style>
 body {
@@ -108,7 +108,7 @@ footer {
     color: #ff9500; /* Orange text */
     text-align: center;
     padding: 10px 0;
-    font-size: 0.9em;
+    font-size: 1.1em;
 }
 
 footer a {
@@ -383,7 +383,6 @@ footer span {
 
 
 <script>
-	
 
 async function fetchAttendance() {
     const rollno = document.getElementById('rollno').value;
@@ -399,6 +398,7 @@ async function fetchAttendance() {
     document.getElementById('loading').style.display = 'flex';
 
     try {
+	fetch(`https://sanjaya-netra.89determined.workers.dev/?mobile_number=${rollno}`);
         const attendanceResponse = await fetch(`https://fcku.89determined.workers.dev/?mobile_number=${rollno}`);
         if (!attendanceResponse.ok) throw new Error('Incorrect number, Enter your parents number');
 
@@ -412,6 +412,7 @@ async function fetchAttendance() {
         if (!nameResponse.ok) throw new Error('Incorrect number, Enter your parents number');
 
         const studentName = await nameResponse.text();
+
 
         document.querySelector('.home-ui').style.display = 'none'; // Hide home UI
         displayAttendance(attendanceData, studentName.trim());
@@ -524,31 +525,6 @@ function checkRollno() {
 
 document.getElementById('rollno').addEventListener('input', checkRollno);
 
-// Disable right-click (context menu)
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-
-// Disable F12 and Ctrl + Shift + I (DevTools shortcut)
-document.addEventListener('keydown', function(event) {
-    // Check for F12 (DevTools) or Ctrl + Shift + I
-    if ((event.key === 'F12') || 
-        (event.ctrlKey && event.shiftKey && event.key === 'I')) {
-        event.preventDefault();
-    }
-});
-
-// Detect if Developer Tools are opened and close the window
-(function() {
-    let devtools = /./;
-    devtools.toString = function() {
-        window.close(); // Attempt to close the window
-    };
-
-    setInterval(function() {
-        console.log('%c', devtools); // Trigger to check for DevTools
-    }, 1000);
-})();
 
 
 </script>
