@@ -207,7 +207,7 @@ export default function Home() {
         <footer className="text-center py-4 text-gray-600">
           <div className="footer-content">
             <p>
-              Made with ❤️ by <span className="font-semibold text-orange-600">Vardan</span>
+              Designed by <span className="font-semibold text-orange-600">Vardan</span>
             </p>
           </div>
         </footer>
