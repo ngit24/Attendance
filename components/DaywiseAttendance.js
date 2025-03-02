@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import '../styles/neo-day.css';
+import '../pages/_app.js';
 
 const DaywiseAttendance = ({ days }) => {
   const [expanded, setExpanded] = useState(false);

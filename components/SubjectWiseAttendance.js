@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import '../styles/sub.css';
+import '../pages/_app.js';
 
 const SubjectWiseAttendance = ({ subjects }) => {
   if (!subjects || subjects.length === 0) {

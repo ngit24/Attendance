@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function InputSection({ onSubmit, isLoading }) {
   const [number, setNumber] = useState("");
@@ -6,6 +6,11 @@ export default function InputSection({ onSubmit, isLoading }) {
   const handleChange = (e) => {
     const value = e.target.value.replace(/\D/g, '').slice(0, 10);
     setNumber(value);
+    
+    // Auto-submit when reaching 10 digits
+    if (value.length === 10) {
+      onSubmit(value);
+    }
   };
 
   const handleClick = () => {
@@ -27,8 +32,8 @@ export default function InputSection({ onSubmit, isLoading }) {
           disabled={isLoading}
         />
         <button 
-          type="button" // Changed to type="button"
-          onClick={handleClick} // Added onClick handler
+          type="button"
+          onClick={handleClick}
           disabled={number.length !== 10 || isLoading}
         >
           {isLoading ? (

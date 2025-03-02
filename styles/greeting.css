@@ -19,6 +19,26 @@
   padding: 0 1.5rem;
 }
 
+.greeting-text {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#studentName {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  white-space: nowrap; /* Prevent line wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis if too long */
+  max-width: 100%; /* Stay within container */
+}
+
 .greeting-card {
   position: relative;
   background: var(--card-bg);
@@ -56,23 +76,13 @@
   z-index: 0;
 }
 
-#studentName {
-  font-size: 2rem;
-  font-weight: 700;
+.card-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
   position: relative;
   z-index: 1;
-}
-
-#studentName::after {
-  content: '';
-  display: block;
-  width: 50px;
-  height: 4px;
-  background: var(--accent);
-  margin: 0.5rem auto 0;
-  border-radius: 2px;
 }
 
 .percentage-circle {
@@ -103,7 +113,7 @@
 
 #totalPercentage {
   position: relative;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--accent);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -118,20 +128,12 @@
   position: relative;
 }
 
-/* Animation */
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --card-bg: #2a2a2a;
@@ -139,47 +141,25 @@
     --text-secondary: #cccccc;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
-  
   .percentage-circle::before {
     background: #2a2a2a;
   }
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 768px) {
-  .greeting-card {
-    padding: 2rem 1.5rem;
-  }
-  
-  #studentName {
-    font-size: 1.8rem;
-  }
-  
-  .percentage-circle {
-    width: 130px;
-    height: 130px;
-  }
-  
-  #totalPercentage {
-    font-size: 2.2rem;
-  }
+  .greeting-text { font-size: 1.8rem; }
+  #studentName { font-size: 1.8rem; }
+  .greeting-card { padding: 2rem 1.5rem; }
+  .card-heading { font-size: 1.6rem; }
+  .percentage-circle { width: 130px; height: 130px; }
+  #totalPercentage { font-size: 1.9rem; }
 }
 
 @media screen and (max-width: 480px) {
-  .greeting-card {
-    padding: 1.5rem 1rem;
-  }
-  
-  #studentName {
-    font-size: 1.5rem;
-  }
-  
-  .percentage-circle {
-    width: 110px;
-    height: 110px;
-  }
-  
-  #totalPercentage {
-    font-size: 1.8rem;
-  }
+  .greeting-text { font-size: 1.5rem; }
+  #studentName { font-size: 1.5rem; }
+  .greeting-card { padding: 1.5rem 1rem; }
+  .card-heading { font-size: 1.4rem; }
+  .percentage-circle { width: 110px; height: 110px; }
+  #totalPercentage { font-size: 1.5rem; }
 }
