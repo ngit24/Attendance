@@ -5,7 +5,6 @@ import '../pages/_app.js'; // Assuming global styles, keep if needed
 import AttendanceData from '../components/AttendanceData';
 import InputSection from '../components/InputSection';
 // Import our new styles
-import '../styles/popup.css';
 
 export default function Home() {
   const [attendanceData, setAttendanceData] = useState(null);
