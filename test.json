@@ -1,0 +1,159 @@
+{
+    "name": "BHUVANAGIRI BHARADWAJ",
+    "attendance": {
+        "attandance": {
+            "dayobjects": [
+                {
+                    "day": "Today",
+                    "date": "Sun 02 Mar",
+                    "updatedon": "Sun 02 Mar  at 02:49 AM",
+                    "holiday": "true",
+                    "sessions": {
+                        "session1": "2",
+                        "session2": "2",
+                        "session3": "2",
+                        "session4": "2",
+                        "session5": "2",
+                        "session6": "2",
+                        "session7": "2"
+                    }
+                },
+                {
+                    "date": "Sat 01 Mar",
+                    "holiday": "false",
+                    "sessions": {
+                        "session1": "2",
+                        "session2": "1",
+                        "session3": "1",
+                        "session4": "1",
+                        "session5": "1",
+                        "session6": "2",
+                        "session7": "2"
+                    }
+                },
+                {
+                    "date": "Fri 28 Feb",
+                    "holiday": "false",
+                    "sessions": {
+                        "session1": "1",
+                        "session2": "1",
+                        "session3": "1",
+                        "session4": "1",
+                        "session5": "2",
+                        "session6": "1",
+                        "session7": "1"
+                    }
+                },
+                {
+                    "date": "Thu 27 Feb",
+                    "holiday": "false",
+                    "sessions": {
+                        "session1": "0",
+                        "session2": "0",
+                        "session3": "0",
+                        "session4": "0",
+                        "session5": "0",
+                        "session6": "0",
+                        "session7": "0"
+                    }
+                },
+                {
+                    "date": "Tue 25 Feb",
+                    "holiday": "false",
+                    "sessions": {
+                        "session1": "1",
+                        "session2": "1",
+                        "session3": "2",
+                        "session4": "1",
+                        "session5": "2",
+                        "session6": "1",
+                        "session7": "2"
+                    }
+                }
+            ],
+            "twoweeksessions": {
+                "present": 14,
+                "absent": 7,
+                "nosessions": 7
+            }
+        },
+        "overallattperformance": {
+            "overall": [
+                {
+                    "subjectname": "CHEMISTRY",
+                    "percentage": 100,
+                    "practical": "--",
+                    "colorcode1": "#137512",
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "ENG",
+                    "percentage": 66.67,
+                    "practical": "--",
+                    "colorcode1": "#832533",
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "SP LAB",
+                    "percentage": "--",
+                    "practical": 100,
+                    "colorcode1": null,
+                    "colorcode2": "#137512"
+                },
+                {
+                    "subjectname": "WORKSHOP",
+                    "percentage": 0,
+                    "practical": "--",
+                    "colorcode1": null,
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "CHEM-ENG L",
+                    "percentage": 40,
+                    "practical": "--",
+                    "colorcode1": "#ff0000",
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "SP",
+                    "percentage": 50,
+                    "practical": "--",
+                    "colorcode1": "#fdb004",
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "FDS-1",
+                    "percentage": 100,
+                    "practical": "--",
+                    "colorcode1": "#137512",
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "DE & NM",
+                    "percentage": 100,
+                    "practical": "--",
+                    "colorcode1": "#137512",
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "EITK",
+                    "percentage": 100,
+                    "practical": "--",
+                    "colorcode1": "#137512",
+                    "colorcode2": null
+                },
+                {
+                    "subjectname": "ES",
+                    "percentage": 100,
+                    "practical": "--",
+                    "colorcode1": "#137512",
+                    "colorcode2": null
+                }
+            ],
+            "totalpercentage": "66.67",
+            "colorcode": "#832533"
+        },
+        "success": 1,
+        "debug": ""
+    }
+}

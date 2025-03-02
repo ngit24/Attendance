@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
+  --secondary-gradient: linear-gradient(135deg, #13547a, #80d0c7);
+  --card-bg: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent: #4a6cf7;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --border-radius: 16px;
+}
+
+.data-section {
+  display: none;
+  font-family: 'Poppins', sans-serif;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.greeting-card {
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.greeting-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: var(--primary-gradient);
+}
+
+.greeting-card::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--secondary-gradient);
+  opacity: 0.1;
+  z-index: 0;
+}
+
+#studentName {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+#studentName::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: var(--accent);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.percentage-circle {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 2rem;
+  box-shadow: 0 5px 15px rgba(110, 142, 251, 0.4);
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+.percentage-circle::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: white;
+  border-radius: 50%;
+}
+
+#totalPercentage {
+  position: relative;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#updatedOn {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: 0.5rem;
+  z-index: 1;
+  position: relative;
+}
+
+/* Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .percentage-circle::before {
+    background: #2a2a2a;
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .greeting-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  #studentName {
+    font-size: 1.8rem;
+  }
+  
+  .percentage-circle {
+    width: 130px;
+    height: 130px;
+  }
+  
+  #totalPercentage {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .greeting-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  #studentName {
+    font-size: 1.5rem;
+  }
+  
+  .percentage-circle {
+    width: 110px;
+    height: 110px;
+  }
+  
+  #totalPercentage {
+    font-size: 1.8rem;
+  }
+}

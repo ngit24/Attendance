@@ -1,0 +1,951 @@
+.daywise-attendance {
+  margin: 30px 0;
+  border-radius: 12px;
+  padding: 25px;
+  background-color: #ffffff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #f0f0f0;
+}
+
+.daywise-attendance::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+}
+
+.daywise-attendance h3 {
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+  color: #333;
+  font-family: var(--heading-font, 'Comfortaa', cursive);
+  position: relative;
+  display: inline-block;
+}
+
+.daywise-attendance h3::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 12px 15px;
+  text-align: left;
+  vertical-align: middle;
+  border: none;
+}
+
+.attendance-table th {
+  background-color: #f8f9fa;
+  color: #3a7bd5;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #eaeaea;
+}
+
+.attendance-table tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.attendance-table tr:last-child {
+  border-bottom: none;
+}
+
+.attendance-table tr:hover {
+  background-color: rgba(58, 123, 213, 0.03);
+}
+
+.attendance-table .holiday {
+  background-color: rgba(255, 202, 202, 0.15);
+  position: relative;
+}
+
+.attendance-table .holiday::after {
+  content: '❉ Holiday';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  color: #ff6b6b;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.attendance-table td:first-child {
+  font-weight: 500;
+  color: #333;
+}
+
+.sessions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 400px;
+}
+
+.session {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.session:hover {
+  transform: translateY(-2px);
+}
+
+.session-0 {
+  background-color: #ff5252;
+  color: white;
+}
+
+.session-0::before {
+  content: '✕';
+  margin-right: 4px;
+  font-size: 0.7rem;
+}
+
+.session-1 {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.session-1::before {
+  content: '✓';
+  margin-right: 4px;
+}
+
+.session-2 {
+  background-color: #2196F3;
+  color: white;
+}
+
+.session-2::before {
+  content: '◆';
+  margin-right: 4px;
+  font-size: 0.7rem;
+}
+
+/* Legend for session status */
+.session-legend {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.legend-absent {
+  background-color: #ff5252;
+}
+
+.legend-present {
+  background-color: #4CAF50;
+}
+
+.legend-other {
+  background-color: #2196F3;
+}
+
+.attendance-timeline {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 35px 0;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+/* Timeline title */
+.timeline-title {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: var(--heading-font, 'Comfortaa', cursive);
+  position: relative;
+  display: inline-block;
+}
+
+.timeline-title::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+/* Today's card styling */
+.today-card {
+  background: linear-gradient(150deg, rgba(58, 123, 213, 0.04), rgba(0, 210, 255, 0.04));
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 30px;
+  position: relative;
+  border: 1px solid #e8f0fe;
+  box-shadow: 0 8px 15px rgba(58, 123, 213, 0.07);
+}
+
+.today-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3a7bd5, #00d2ff);
+  border-radius: 5px 0 0 5px;
+}
+
+.today-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.today-label {
+  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.today-date {
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.holiday-badge {
+  background-color: #ff9800;
+  color: white;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-left: auto;
+}
+
+.today-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.attendance-indicator {
+  padding: 15px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.percent-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.percent-ring {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-chart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 2.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke: #3a7bd5;
+  animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0, 100;
+  }
+}
+
+.percent-value {
+  position: absolute;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #3a7bd5;
+}
+
+.attendance-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.stat-item.present {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+}
+
+.stat-item.absent {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #F44336;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.sessions-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f0f0;
+}
+
+.sessions-title {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.session-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.session-pill {
+  border-radius: 30px;
+  padding: 8px 15px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.session-pill:hover {
+  transform: translateY(-2px);
+}
+
+.session-pill.status-0 {
+  background-color: rgba(244, 67, 54, 0.15);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.session-pill.status-1 {
+  background-color: rgba(76, 175, 80, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.session-pill.status-2 {
+  background-color: rgba(158, 158, 158, 0.15);
+  border: 1px solid rgba(158, 158, 158, 0.3);
+}
+
+.session-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.session-status {
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.status-1 .session-status {
+  color: #4CAF50;
+}
+
+.status-0 .session-status {
+  color: #F44336;
+}
+
+.status-2 .session-status {
+  color: #757575;
+}
+
+.holiday-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.holiday-message i {
+  font-size: 2.5rem;
+  color: #FF9800;
+}
+
+.holiday-message p {
+  color: #555;
+  font-size: 1.1rem;
+}
+
+/* Past days accordion */
+.past-attendance {
+  margin-top: 40px;
+}
+
+.past-title {
+  font-size: 1.25rem;
+  color: #555;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.past-title::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 2.5px;
+  background: #ccc;
+  margin-top: 5px;
+}
+
+.days-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-item {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.day-item.holiday {
+  border-left: 4px solid #FF9800;
+}
+
+.day-item.expanded {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  background-color: #fafafa;
+  transition: background-color 0.2s ease;
+}
+
+.day-header:hover {
+  background-color: #f5f5f5;
+}
+
+.day-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.day-date {
+  font-weight: 600;
+  color: #333;
+}
+
+.day-holiday-tag {
+  background-color: #FF9800;
+  color: white;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.attendance-percent {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.percent-value {
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.percent-value.low {
+  color: #F44336;
+}
+
+.percent-value.medium {
+  color: #FF9800;
+}
+
+.percent-value.high {
+  color: #4CAF50;
+}
+
+.day-expand i {
+  font-size: 0.8rem;
+  color: #888;
+  transition: transform 0.3s ease;
+}
+
+.expanded .day-expand i {
+  transform: rotate(180deg);
+}
+
+.day-details {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.session-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.session-block {
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.session-block.status-0 {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.session-block.status-1 {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.session-block.status-2 {
+  background-color: rgba(158, 158, 158, 0.1);
+}
+
+.session-block-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.session-block-status i {
+  font-size: 1.2rem;
+}
+
+.status-1 .session-block-status i {
+  color: #4CAF50;
+}
+
+.status-0 .session-block-status i {
+  color: #F44336;
+}
+
+.status-2 .session-block-status i {
+  color: #757575;
+}
+
+.session-block-text {
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.day-summary {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.summary-item {
+  text-align: center;
+}
+
+.summary-value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.holiday-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background-color: rgba(255, 152, 0, 0.05);
+  border-radius: 8px;
+}
+
+.holiday-details i {
+  font-size: 1.5rem;
+  color: #FF9800;
+}
+
+.holiday-details p {
+  color: #666;
+}
+
+.update-info {
+  margin-top: 15px;
+  font-size: 0.8rem;
+  color: #888;
+  text-align: right;
+  font-style: italic;
+}
+
+/* Legend styling */
+.legend {
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.legend-title {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.legend-items {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.present-color {
+  background-color: #4CAF50;
+}
+
+.absent-color {
+  background-color: #F44336;
+}
+
+.not-taken-color {
+  background-color: #9E9E9E;
+}
+
+/* No data state */
+.no-data {
+  padding: 50px 20px;
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  border: 1px dashed #ddd;
+  margin: 20px 0;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .daywise-attendance {
+    padding: 20px 15px;
+    margin: 20px 0;
+  }
+  
+  .attendance-table th,
+  .attendance-table td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .session {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+  
+  .attendance-table .holiday::after {
+    position: static;
+    display: block;
+    margin-top: 5px;
+    text-align: right;
+  }
+
+  .attendance-timeline {
+    padding: 20px 15px;
+    margin: 20px 0;
+  }
+  
+  .today-card {
+    padding: 20px;
+  }
+  
+  .today-summary {
+    flex-direction: column;
+  }
+  
+  .percent-container {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .attendance-stats {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .session-block {
+    padding: 10px;
+  }
+  
+  .day-details {
+    padding: 15px;
+  }
+  
+  .day-summary {
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile layout */
+@media screen and (max-width: 576px) {
+  .attendance-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .sessions {
+    gap: 4px;
+  }
+  
+  .session {
+    padding: 3px 6px;
+    font-size: 0.7rem;
+  }
+  
+  .daywise-attendance h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .daywise-attendance {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .attendance-table th {
+    background-color: #333;
+    color: #7db0ff;
+    border-bottom-color: #444;
+  }
+  
+  .attendance-table tr {
+    border-bottom-color: #3a3a3a;
+  }
+  
+  .attendance-table tr:hover {
+    background-color: rgba(58, 123, 213, 0.1);
+  }
+  
+  .attendance-table .holiday {
+    background-color: rgba(255, 107, 107, 0.1);
+  }
+  
+  .attendance-table td:first-child {
+    color: #eee;
+  }
+  
+  .session-legend {
+    background-color: #333;
+  }
+  
+  .legend-item {
+    color: #ccc;
+  }
+
+  .attendance-timeline {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+  }
+  
+  .timeline-title,
+  .today-date,
+  .sessions-title,
+  .past-title,
+  .day-date {
+    color: #f0f0f0;
+  }
+  
+  .today-card {
+    background: linear-gradient(150deg, rgba(58, 123, 213, 0.1), rgba(0, 210, 255, 0.1));
+    border-color: #3a3a3a;
+  }
+  
+  .sessions-container,
+  .day-item {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+  }
+  
+  .day-header {
+    background-color: #333;
+  }
+  
+  .day-header:hover {
+    background-color: #3a3a3a;
+  }
+  
+  .attendance-indicator,
+  .session-pill {
+    background-color: rgba(42, 42, 42, 0.8);
+  }
+  
+  .session-name {
+    color: #ddd;
+  }
+  
+  .day-details {
+    border-color: #3a3a3a;
+  }
+  
+  .day-summary,
+  .legend {
+    background-color: #333;
+  }
+  
+  .summary-value {
+    color: #ddd;
+  }
+  
+  .summary-label,
+  .legend-title,
+  .session-block-text {
+    color: #aaa;
+  }
+  
+  .holiday-details {
+    background-color: rgba(255, 152, 0, 0.1);
+  }
+  
+  .holiday-message {
+    background-color: #2a2a2a;
+  }
+  
+  .holiday-message p {
+    color: #ddd;
+  }
+  
+  .no-data {
+    background-color: #333;
+    border-color: #444;
+    color: #aaa;
+  }
+}

@@ -1,0 +1,430 @@
+/* Import professional and creative fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  --secondary-gradient: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  --card-bg: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #6c757d;
+  --accent: #3a7bd5;
+  --accent-light: #00d2ff;
+  --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  --border-radius: 8px;
+  --neon-glow: 0 0 10px rgba(58, 123, 213, 0.3);
+  --footer-height: 60px;
+  --heading-font: 'Comfortaa', cursive;
+  --body-font: 'Quicksand', sans-serif;
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--body-font);
+  background: #ffffff;
+  color: var(--text-primary);
+  position: relative;
+  min-height: 100vh;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233a7bd5' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main layout containers - Revised for better placement */
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem 1rem calc(var(--footer-height) + 2rem) 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.dashboard {
+  width: 92%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #eaeaea;
+}
+
+/* Add subtle accent bar at top */
+.dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--primary-gradient);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: var(--heading-font);
+  letter-spacing: -0.5px;
+}
+
+.header h1::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--primary-gradient);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-top: 0.7rem;
+  font-family: var(--body-font);
+}
+
+.input-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-section input {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  background: #ffffff;
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  transition: all 0.2s ease;
+  font-family: var(--body-font);
+}
+
+.input-section input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
+  outline: none;
+}
+
+.input-section input:disabled,
+.input-section button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.input-section button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background: var(--primary-gradient);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 6px rgba(58, 123, 213, 0.2);
+  font-family: var(--body-font);
+  position: relative;
+  overflow: hidden;
+}
+
+.input-section button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s;
+}
+
+.input-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(58, 123, 213, 0.3);
+}
+
+.input-section button:hover::before {
+  left: 100%;
+}
+
+.input-section button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(58, 123, 213, 0.2);
+}
+
+.data-section {
+  display: none;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.additional-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  margin: 1rem 0 1.5rem;
+}
+
+.button, .cie-button, .sem-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  background: #ffffff;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+  position: relative;
+  border: 1px solid #eaeaea;
+  width: 100%;
+  text-align: center;
+  font-family: var(--body-font);
+}
+
+.button::before, .cie-button::before, .sem-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--primary-gradient);
+  transition: all 0.3s ease;
+}
+
+.button:hover, .cie-button:hover, .sem-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(58, 123, 213, 0.15);
+  border-color: rgba(58, 123, 213, 0.3);
+  color: #fff;
+  background: var(--primary-gradient);
+}
+
+.button:active, .cie-button:active, .sem-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(58, 123, 213, 0.1);
+}
+
+.button i {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.button:hover i {
+  color: #fff;
+}
+
+/* Footer styles - Fixed position but better spacing */
+footer {
+  height: var(--footer-height);
+  background: #f8f9fa;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  body {
+    background-color: #1a1a1a;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233a7bd5' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  .dashboard {
+    background: var(--card-bg);
+    border-color: #3a3a3a;
+  }
+  
+  .input-section input {
+    background: rgba(60, 60, 60, 0.8);
+    border-color: #3a3a3a;
+  }
+  
+  .button, .cie-button, .sem-button {
+    background: var(--card-bg);
+    border-color: #3a3a3a;
+  }
+  
+  footer {
+    background: #2a2a2a;
+    border-color: #3a3a3a;
+  }
+}
+
+/* Responsive adjustments - Revised for better layout */
+@media screen and (min-width: 1440px) {
+  .dashboard {
+    max-width: 1100px;
+    padding: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  .dashboard {
+    width: 90%;
+    padding: 2rem 1.5rem;
+  }
+  
+  .page-container {
+    padding: 1.5rem 1rem calc(var(--footer-height) + 1.5rem) 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard {
+    width: 94%;
+    padding: 1.5rem;
+  }
+  
+  .page-container {
+    padding: 1.25rem 0.75rem calc(var(--footer-height) + 1.25rem) 0.75rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .page-container {
+    padding: 1rem 0.5rem calc(var(--footer-height) + 1rem) 0.5rem;
+  }
+
+  .dashboard {
+    width: 96%;
+    padding: 1.25rem 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.7rem;
+  }
+  
+  .header p {
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+  }
+  
+  .input-section {
+    margin-bottom: 20px;
+  }
+  
+  .input-section input {
+    max-width: 100%;
+    padding: 0.7rem 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .input-section button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  .button, .cie-button, .sem-button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .additional-buttons {
+    gap: 12px;
+    max-width: 100%;
+  }
+}
+
+/* Very small phones */
+@media screen and (max-width: 320px) {
+  .dashboard {
+    width: 98%;
+    padding: 1rem 0.75rem;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .input-section button {
+    padding: 0.6rem 1rem;
+  }
+  
+  .additional-buttons {
+    gap: 10px;
+  }
+  
+  footer {
+    font-size: 0.8rem;
+  }
+}
+
+/* Add these styles to your existing CSS */
+.attendance-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid red;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
