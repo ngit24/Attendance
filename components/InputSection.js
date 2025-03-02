@@ -23,7 +23,7 @@ export default function InputSection({ onSubmit, isLoading }) {
     <div className="input-section">
       <div className="attendance-form">
         <input
-          type="tel"
+          type="text"
           value={number}
           onChange={handleChange}
           placeholder="Enter Parent's Number"

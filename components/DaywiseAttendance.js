@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../pages/_app.js';
 
@@ -6,15 +6,14 @@ const DaywiseAttendance = ({ days }) => {
   const [expanded, setExpanded] = useState(false);
   const [todayData, setTodayData] = useState(null);
   const [pastDays, setPastDays] = useState([]);
-  
+  const sessionRefs = useRef([]);
+
   useEffect(() => {
     if (!days || days.length === 0) return;
     
-    // Find today's data (first day is usually today)
     const today = days.find(day => day.day === "Today") || days[0];
     setTodayData(today);
     
-    // Get past days (excluding today)
     const past = days.filter(day => day !== today && day.holiday !== 'true');
     setPastDays(past);
   }, [days]);
@@ -24,9 +23,45 @@ const DaywiseAttendance = ({ days }) => {
   }
   
   const formatDate = (dateStr) => {
-    return dateStr.replace(/^\w+ /, ''); // Remove day of week
+    return dateStr.replace(/^\w+ /, '');
   };
-  
+
+  const animateSession = (index) => {
+    const element = sessionRefs.current[index];
+    if (!element) return;
+
+    const tl = motion.timeline();
+    
+    for (let i = 0; i < 3; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'orbit-particle';
+      element.appendChild(particle);
+      
+      motion.to(particle, {
+        keyframes: {
+          x: [0, Math.cos(i * 2.1) * 20, 0],
+          y: [0, Math.sin(i * 2.1) * 20, 0],
+          scale: [0.5, 1, 0],
+          opacity: [0, 1, 0]
+        },
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: "power2.out",
+        onComplete: () => particle.remove()
+      });
+    }
+
+    motion.fromTo(element.querySelector('.dot-core'),
+      { scale: 0.5, opacity: 0 },
+      { 
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        ease: "back.out(1.7)"
+      }
+    );
+  };
+
   return (
     <div className="neo-timeline-container">
       <div className="timeline-header">
@@ -37,7 +72,7 @@ const DaywiseAttendance = ({ days }) => {
           whileTap={{ scale: 0.95 }}
           whileHover={{ scale: 1.05 }}
         >
-          {expanded ? 'Show Less' : 'Show All'}
+          {expanded ? 'Show Less' : 'Show More'}
           <span className={`toggle-icon ${expanded ? 'expanded' : ''}`}>
             <i className="fas fa-chevron-down"></i>
           </span>
@@ -61,6 +96,7 @@ const DaywiseAttendance = ({ days }) => {
               <motion.div
                 key={session}
                 className={`session-dot status-${value}`}
+                ref={el => sessionRefs.current[index] = el}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ 
@@ -73,6 +109,7 @@ const DaywiseAttendance = ({ days }) => {
                   scale: 1.2,
                   boxShadow: '0 0 15px var(--glow-color)'
                 }}
+                onClick={() => animateSession(index)}
                 data-period={session.replace('session', 'P')}
                 data-status={value === '1' ? 'Present' : value === '0' ? 'Absent' : 'Not Taken'}
               >
@@ -109,6 +146,7 @@ const DaywiseAttendance = ({ days }) => {
                     <motion.div
                       key={session}
                       className={`session-dot status-${value}`}
+                      ref={el => sessionRefs.current[dayIndex * 10 + index + (todayData ? Object.keys(todayData.sessions).length : 0)] = el}
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ 
@@ -121,6 +159,7 @@ const DaywiseAttendance = ({ days }) => {
                         scale: 1.2,
                         boxShadow: '0 0 15px var(--glow-color)'
                       }}
+                      onClick={() => animateSession(dayIndex * 10 + index + (todayData ? Object.keys(todayData.sessions).length : 0))}
                       data-period={session.replace('session', 'P')}
                       data-status={value === '1' ? 'Present' : value === '0' ? 'Absent' : 'Not Taken'}
                     >
@@ -136,15 +175,21 @@ const DaywiseAttendance = ({ days }) => {
       
       <div className="timeline-legend">
         <div className="legend-item">
-          <div className="legend-dot status-1"></div>
+          <div className="legend-dot status-1">
+            <span className="dot-core"></span>
+          </div>
           <span>Present</span>
         </div>
         <div className="legend-item">
-          <div className="legend-dot status-0"></div>
+          <div className="legend-dot status-0">
+            <span className="dot-core"></span>
+          </div>
           <span>Absent</span>
         </div>
         <div className="legend-item">
-          <div className="legend-dot status-2"></div>
+          <div className="legend-dot status-2">
+            <span className="dot-core"></span>
+          </div>
           <span>Not Taken</span>
         </div>
       </div>

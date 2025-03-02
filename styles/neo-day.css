@@ -171,6 +171,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: visible;
 }
 
 .session-dot::before {
@@ -218,6 +219,16 @@
   transition: all 0.2s;
 }
 
+.orbit-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  z-index: 2;
+}
+
 .status-1 {
   background: var(--present-color);
   --glow-color: var(--present-glow);
@@ -226,6 +237,11 @@
 
 .status-1 .dot-core {
   background: rgba(255, 255, 255, 0.9);
+}
+
+.status-1 .orbit-particle {
+  background: var(--present-color);
+  box-shadow: 0 0 8px var(--present-glow);
 }
 
 .status-0 {
@@ -238,6 +254,11 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
+.status-0 .orbit-particle {
+  background: var(--absent-color);
+  box-shadow: 0 0 8px var(--absent-glow);
+}
+
 .status-2 {
   background: var(--not-taken-color);
   --glow-color: var(--not-taken-glow);
@@ -246,6 +267,11 @@
 
 .status-2 .dot-core {
   background: rgba(255, 255, 255, 0.3);
+}
+
+.status-2 .orbit-particle {
+  background: var(--not-taken-color);
+  box-shadow: 0 0 8px var(--not-taken-glow);
 }
 
 .past-days-container {
@@ -300,9 +326,6 @@
   padding: 40px 0;
   font-size: 1rem;
 }
-
-/* Add framer-motion dependency to your project */
-/* npm install framer-motion */
 
 /* Responsive styles */
 @media (max-width: 640px) {

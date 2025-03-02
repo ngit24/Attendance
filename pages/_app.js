@@ -1,4 +1,4 @@
-// In pages/_app.js
+// Import your existing style files
 import '../styles/index.css';
 import '../styles/greeting.css';
 import '../styles/neo-day.css';
