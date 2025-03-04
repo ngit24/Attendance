@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import confetti from 'canvas-confetti';
-import styles from '../styles/birthday.css';	
+	
 
 // Mock data for development/fallback
 const MOCK_DATA = {
