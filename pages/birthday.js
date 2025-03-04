@@ -36,7 +36,7 @@ const BirthdayCalendar = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const router = useRouter();
   
-  const apiBaseUrl = 'https://orange-flower-5685.ploomber.app'; // You may need to update this
+  const apiBaseUrl = 'https://bday.89determined.workers.dev'; 
 
   // Extract day/month from date string
   const extractDayMonth = (dateString) => {
