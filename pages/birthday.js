@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import confetti from 'canvas-confetti';
-	
+
 
 // Mock data for development/fallback
 const MOCK_DATA = {
@@ -13,6 +13,13 @@ const MOCK_DATA = {
   ],
   today: []
 };
+
+// Add this array of random messages at the top level
+const NO_BIRTHDAY_MESSAGES = [
+  
+  "No birthdays found today ",
+  
+];
 
 const BirthdayCalendar = () => {
   const today = new Date();
@@ -37,6 +44,19 @@ const BirthdayCalendar = () => {
     const parts = dateString.split('/');
     if (parts.length < 2) return '';
     return `${parts[0]}/${parts[1]}`;
+  };
+
+  // Add new helper function to check if date matches today
+  const isDateToday = (dateString) => {
+    if (!dateString) return false;
+    const today = new Date();
+    const [day, month] = dateString.split('/');
+    return parseInt(day) === today.getDate() && parseInt(month) === (today.getMonth() + 1);
+  };
+
+  // Add this function to get random message
+  const getRandomMessage = () => {
+    return NO_BIRTHDAY_MESSAGES[Math.floor(Math.random() * NO_BIRTHDAY_MESSAGES.length)];
   };
 
   // Generate calendar based on current month/year
@@ -152,11 +172,7 @@ const BirthdayCalendar = () => {
   const fetchTodaysBirthdays = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${apiBaseUrl}/birthdays/today`)
-        .catch(err => {
-          console.error("Network error:", err);
-          throw new Error("Network error when fetching today's birthdays");
-        });
+      const response = await fetch(`${apiBaseUrl}/birthdays/today`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -169,22 +185,26 @@ const BirthdayCalendar = () => {
         data = text ? JSON.parse(text) : [];
       } catch (e) {
         console.error("JSON parsing error:", e);
-        // Use mock data as fallback
         data = MOCK_DATA.today;
       }
       
-      setTodaysBirthdays(Array.isArray(data) ? data : []);
+      // Filter birthdays to only include those that match today's local date
+      const birthdays = Array.isArray(data) ? data.filter(birthday => isDateToday(birthday.dob)) : [];
+      setTodaysBirthdays(birthdays);
       
-      // Trigger confetti if there are birthdays today
-      if (Array.isArray(data) && data.length > 0 && !showConfetti) {
+      // Only trigger confetti if there are actual birthdays matching today's local date
+      if (birthdays.length > 0 && !showConfetti) {
         setShowConfetti(true);
         setTimeout(() => triggerConfetti(), 500);
+      } else {
+        setShowConfetti(false);
       }
       
       setError(null);
     } catch (error) {
       console.error('Error fetching today\'s birthdays:', error);
-      setTodaysBirthdays(MOCK_DATA.today);
+      setTodaysBirthdays([]);
+      setShowConfetti(false);
       setError("Could not load today's birthdays");
     } finally {
       setIsLoading(false);
@@ -323,6 +343,14 @@ const BirthdayCalendar = () => {
     }
   }, [selectedDay, currentDate]);
 
+  // Single unified loader component
+  const Loader = () => (
+    <div className="unified-loader">
+      <div className="loader-ring"></div>
+      <p>Loading data...</p>
+    </div>
+  );
+
   return (
     <div className="birthday-container">
       <Head>
@@ -372,18 +400,15 @@ const BirthdayCalendar = () => {
               {generateCalendar()}
             </div>
             
-            {/* Only show birthday message when viewing today's date AND there are birthdays */}
-            {isViewingToday && todaysBirthdays && todaysBirthdays.length > 0 && (
+            {/* Only show birthday message when viewing today AND there are birthdays matching today's date */}
+            {isViewingToday && todaysBirthdays.some(birthday => isDateToday(birthday.dob)) && (
               <div className="wish">🎉 Happy Birthday ! 🎉</div>
             )}
             
             {error && <div className="error">{error}</div>}
             
             {isLoading ? (
-              <div className="loading">
-                <div className="loader"></div>
-                Loading birthday data...
-              </div>
+              <Loader />
             ) : (
               <div className="result">
                 {selectedDateBirthdays && selectedDateBirthdays.length > 0 ? (
@@ -395,11 +420,18 @@ const BirthdayCalendar = () => {
                   ))
                 ) : (
                   <div className="empty-state">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 14h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <p>No birthdays found on</p>
-                    <p className="date-indicator">{selectedDay} {currentDate.toLocaleString('default', { month: 'long' })} {currentDate.getFullYear()}</p>
+                    <div className="empty-state-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9 10h.01M15 10h.01M12 14h.01M12 16l4 2-4-8-4 8 4-2z" />
+                      </svg>
+                    </div>
+                    <p className="empty-state-message">{getRandomMessage()}</p>
+                    <p className="empty-state-date">
+                      <span className="date-chip">
+                        {selectedDay} {currentDate.toLocaleString('default', { month: 'long' })} {currentDate.getFullYear()}
+                      </span>
+                    </p>
                   </div>
                 )}
               </div>
@@ -408,12 +440,7 @@ const BirthdayCalendar = () => {
           
           <div className="upcoming-birthdays">
             <h2>Upcoming Birthdays (7 Days)</h2>
-            {isLoading ? (
-              <div className="loading">
-                <div className="loader"></div>
-                Loading upcoming birthdays...
-              </div>
-            ) : (
+            {isLoading ? <Loader /> : (
               <div>
                 {upcomingBirthdays && upcomingBirthdays.length > 0 ? (
                   upcomingBirthdays.map((item, index) => (
