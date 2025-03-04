@@ -188,7 +188,7 @@ export default function Home() {
             <div className="extra-buttons-section">
               <button 
                 className="extra-button" 
-                onClick={() => window.open('/index.html', '_blank')}
+                onClick={() => window.open('/test.html', '_blank')}
               >
                 <i className="fas fa-clipboard-list"></i> CIE Marks
               </button>
