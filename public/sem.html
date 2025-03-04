@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Osmania University Results - 2024</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1e272e 0%, #2f3542 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(84, 110, 255, 0.2) 0%, transparent 70%);
+      animation: pulseGlow 15s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: translate(10%, 10%) scale(1); opacity: 0.5; }
+      50% { transform: translate(0%, 0%) scale(1.1); opacity: 0.8; }
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 90%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header */
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #546eff, #00ddeb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      animation: textGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes textGlow {
+      0%, 100% { text-shadow: 0 0 10px rgba(84, 110, 255, 0.5); }
+      50% { text-shadow: 0 0 20px rgba(84, 110, 255, 0.8); }
+    }
+
+    /* Message */
+    .message {
+      font-size: 1.5rem;
+      color: #2d3436;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .emojis {
+      font-size: 2rem;
+      margin-top: 10px;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+      .container {
+        padding: 25px;
+        max-width: 100%;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .message {
+        font-size: 1.25rem;
+      }
+
+      .emojis {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .message {
+        font-size: 1.1rem;
+      }
+
+      .emojis {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Osmania University Results</h1>
+    <p class="message">Our results are yet to be announced</p>
+    <div class="emojis">⏳😂🚀</div>
+  </div>
+</body>
+</html>

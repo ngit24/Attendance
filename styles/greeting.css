@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 :root {
   --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
@@ -13,7 +13,7 @@
 
 .data-section {
   display: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Comfortaa', cursive;
   max-width: 1200px;
   margin: 0rem auto;
   padding: 0 1.5rem;
@@ -25,18 +25,25 @@
   color: var(--text-primary);
   text-align: center;
   margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #studentName {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  background: linear-gradient(45deg, #4FACFE, #00F2FE);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   text-align: center;
   margin-bottom: 1.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  text-shadow: 0 2px 15px rgba(79, 172, 254, 0.3);
 }
 
 .time-display {

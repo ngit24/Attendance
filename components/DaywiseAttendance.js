@@ -26,7 +26,14 @@ const DaywiseAttendance = ({ days }) => {
     return dateStr.replace(/^\w+ /, '');
   };
 
-  const animateSession = (index) => {
+  const animateSession = (index, e) => {
+    // Prevent any default actions and bubbling
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+    
     const element = sessionRefs.current[index];
     if (!element) return;
 
@@ -97,6 +104,7 @@ const DaywiseAttendance = ({ days }) => {
                 key={session}
                 className={`session-dot status-${value}`}
                 ref={el => sessionRefs.current[index] = el}
+                style={{ pointerEvents: 'none' }}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ 
@@ -109,11 +117,17 @@ const DaywiseAttendance = ({ days }) => {
                   scale: 1.2,
                   boxShadow: '0 0 15px var(--glow-color)'
                 }}
-                onClick={() => animateSession(index)}
-                data-period={session.replace('session', 'P')}
-                data-status={value === '1' ? 'Present' : value === '0' ? 'Absent' : 'Not Taken'}
               >
-                <span className="dot-core"></span>
+                <span 
+                  className="dot-core" 
+                  style={{ pointerEvents: 'auto' }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    animateSession(index, e);
+                    return false;
+                  }}
+                ></span>
               </motion.div>
             ))}
           </div>
@@ -147,6 +161,7 @@ const DaywiseAttendance = ({ days }) => {
                       key={session}
                       className={`session-dot status-${value}`}
                       ref={el => sessionRefs.current[dayIndex * 10 + index + (todayData ? Object.keys(todayData.sessions).length : 0)] = el}
+                      style={{ pointerEvents: 'none' }}
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ 
@@ -159,11 +174,17 @@ const DaywiseAttendance = ({ days }) => {
                         scale: 1.2,
                         boxShadow: '0 0 15px var(--glow-color)'
                       }}
-                      onClick={() => animateSession(dayIndex * 10 + index + (todayData ? Object.keys(todayData.sessions).length : 0))}
-                      data-period={session.replace('session', 'P')}
-                      data-status={value === '1' ? 'Present' : value === '0' ? 'Absent' : 'Not Taken'}
                     >
-                      <span className="dot-core"></span>
+                      <span 
+                        className="dot-core" 
+                        style={{ pointerEvents: 'auto' }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          animateSession(dayIndex * 10 + index + (todayData ? Object.keys(todayData.sessions).length : 0), e);
+                          return false;
+                        }}
+                      ></span>
                     </motion.div>
                   ))}
                 </div>

@@ -1,59 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 
-export default function InputSection({ onSubmit, isLoading }) {
-  const [number, setNumber] = useState("");
+const InputSection = ({ onSubmit, isLoading, previousSearches }) => {
+  const [inputValue, setInputValue] = useState('');
 
   const handleChange = (e) => {
-    const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-    setNumber(value);
+    const value = e.target.value;
+    setInputValue(value);
     
-    // Auto-submit when reaching 10 digits
+    // Auto-submit when input length reaches 10 digits
     if (value.length === 10) {
       onSubmit(value);
     }
   };
 
-  const handleClick = () => {
-    if (number.length === 10) {
-      onSubmit(number);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(inputValue);
+  };
+
+  const handleSuggestionClick = (number) => {
+    setInputValue(number);
+    onSubmit(number);
   };
 
   return (
     <div className="input-section">
-      <div className="attendance-form">
+      <form onSubmit={handleSubmit} className="attendance-form">
         <input
-          type="text"
-          value={number}
+          type="tel"
+          placeholder="Enter parent's mobile number"
+          value={inputValue}
           onChange={handleChange}
-          placeholder="Enter Parent's Number"
-          maxLength="10"
-          required
           disabled={isLoading}
+          autoFocus
+          pattern="[0-9]*"
+          inputMode="numeric"
         />
-        <button 
-          type="button"
-          onClick={handleClick}
-          disabled={number.length !== 10 || isLoading}
-        >
-          {isLoading ? (
-            <span>Loading...</span>
-          ) : (
-            <>
-              <i className="fas fa-search"></i> 
-              Get Attendance
-            </>
-          )}
+        <button type="submit" disabled={isLoading || !inputValue}>
+          Get Attendance
         </button>
-      </div>
-      <div className="additional-buttons">
-        <a href="https://ngit24.me/cie.html" className="button cie-button">
-          <i className="fas fa-chart-line"></i>Check Your CIE Marks
-        </a>
-        <a href="https://ngit24.github.io/pyq/" className="button pyqs-button">
-          <i className="fas fa-book"></i>Get PYQS
-        </a>
-      </div>
+      </form>
+      
+      {previousSearches && previousSearches.length > 0 && (
+        <div className="suggestions-container">
+          <div className="suggestions-header">
+            <span className="suggestions-title">Suggestions</span>
+          </div>
+          <div className="suggestions-list">
+            {previousSearches.map((number, index) => (
+              <button 
+                key={index} 
+                className="suggestion-item" 
+                onClick={() => handleSuggestionClick(number)}
+              >
+                <i className="fas fa-history suggestion-icon"></i>
+                <span className="suggestion-text">{number}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default InputSection;

@@ -26,7 +26,7 @@ export default function AttendanceData({ data }) {
       const studentNameEl = document.getElementById("studentName");
       if (studentNameEl.scrollWidth > studentNameEl.clientWidth) {
         const fontSize = parseFloat(window.getComputedStyle(studentNameEl).fontSize);
-        studentNameEl.style.fontSize = `${fontSize * 0.9}px`;
+        studentNameEl.style.fontSize = `${fontSize * 0.7}px`;
       }
     }
 
