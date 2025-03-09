@@ -17,7 +17,7 @@ const MOCK_DATA = {
 // Add this array of random messages at the top level
 const NO_BIRTHDAY_MESSAGES = [
   
-  "No birthdays found today ",
+  "No birthdays found on selected day ",
   
 ];
 
@@ -37,6 +37,9 @@ const BirthdayCalendar = () => {
   const router = useRouter();
   
   const apiBaseUrl = 'https://bday.89determined.workers.dev'; 
+
+  // Add state for selected filter
+  const [selectedFilter, setSelectedFilter] = useState('all');
 
   // Extract day/month from date string
   const extractDayMonth = (dateString) => {
@@ -174,6 +177,14 @@ const BirthdayCalendar = () => {
       setIsLoading(true);
       const response = await fetch(`${apiBaseUrl}/birthdays/today`);
       
+      // Handle 404 gracefully - it just means no birthdays today
+      if (response.status === 404) {
+        setTodaysBirthdays([]);
+        setShowConfetti(false);
+        setError(null);
+        return;
+      }
+      
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -205,7 +216,10 @@ const BirthdayCalendar = () => {
       console.error('Error fetching today\'s birthdays:', error);
       setTodaysBirthdays([]);
       setShowConfetti(false);
-      setError("Could not load today's birthdays");
+      // Only set error if it's not a 404
+      if (!error.message.includes('404')) {
+        setError("Could not load today's birthdays");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -215,11 +229,14 @@ const BirthdayCalendar = () => {
   const fetchUpcomingBirthdays = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${apiBaseUrl}/birthdays/upcoming`)
-        .catch(err => {
-          console.error("Network error:", err);
-          throw new Error("Network error when fetching upcoming birthdays");
-        });
+      const response = await fetch(`${apiBaseUrl}/birthdays/upcoming`);
+      
+      // Handle 404 gracefully - it just means no upcoming birthdays
+      if (response.status === 404) {
+        setUpcomingBirthdays([]);
+        setError(null);
+        return;
+      }
       
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -240,8 +257,11 @@ const BirthdayCalendar = () => {
       setError(null);
     } catch (error) {
       console.error('Error fetching upcoming birthdays:', error);
-      setUpcomingBirthdays(MOCK_DATA.upcoming);
-      setError("Could not load upcoming birthdays");
+      setUpcomingBirthdays([]);
+      // Only set error if it's not a 404
+      if (!error.message.includes('404')) {
+        setError("Could not load upcoming birthdays");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -258,15 +278,10 @@ const BirthdayCalendar = () => {
       // Clear any previous data while loading
       setSelectedDateBirthdays([]);
       
-      const response = await fetch(`${apiBaseUrl}/birthdays/date/${date}`)
-        .catch(err => {
-          console.error("Network error:", err);
-          throw new Error("Network error when fetching birthdays for date");
-        });
+      const response = await fetch(`${apiBaseUrl}/birthdays/date/${date}`);
       
-      // Special handling for 404 - it just means no birthdays on this day
+      // Handle 404 gracefully - it just means no birthdays on this date
       if (response.status === 404) {
-        console.log(`No birthdays found for ${day}/${month}/${year}`);
         setSelectedDateBirthdays([]);
         setError(null);
         return;
@@ -291,8 +306,7 @@ const BirthdayCalendar = () => {
     } catch (error) {
       console.error('Error fetching birthdays for date:', error);
       setSelectedDateBirthdays([]);
-      
-      // Only set error state if it's not a 404 (which means no birthdays)
+      // Only set error if it's not a 404
       if (!error.message.includes('404')) {
         setError(`Could not load birthdays for ${day}/${currentDate.getMonth() + 1}`);
       }
@@ -306,6 +320,7 @@ const BirthdayCalendar = () => {
     const timer = setTimeout(() => {
       // Fetch today's birthdays both for the banner and the selected day display
       fetchTodaysBirthdays();
+      // Fetch upcoming birthdays only once
       fetchUpcomingBirthdays();
       // Since today is pre-selected, also fetch birthdays for today's date
       fetchBirthdaysForDate(today.getDate());
@@ -421,10 +436,7 @@ const BirthdayCalendar = () => {
                 ) : (
                   <div className="empty-state">
                     <div className="empty-state-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9 10h.01M15 10h.01M12 14h.01M12 16l4 2-4-8-4 8 4-2z" />
-                      </svg>
+                     
                     </div>
                     <p className="empty-state-message">{getRandomMessage()}</p>
                     <p className="empty-state-date">
@@ -440,10 +452,40 @@ const BirthdayCalendar = () => {
           
           <div className="upcoming-birthdays">
             <h2>Upcoming Birthdays (7 Days)</h2>
+            
+            {/* Add filter buttons */}
+            <div className="filter-buttons">
+              <button 
+                className={selectedFilter === 'all' ? 'active' : ''}
+                onClick={() => setSelectedFilter('all')}
+              >
+                All
+              </button>
+              <button 
+                className={selectedFilter === 'csm' ? 'active' : ''}
+                onClick={() => setSelectedFilter('csm')}
+              >
+                CSM
+              </button>
+              <button 
+                className={selectedFilter === 'cse' ? 'active' : ''}
+                onClick={() => setSelectedFilter('cse')}
+              >
+                CSE
+              </button>
+            </div>
+
             {isLoading ? <Loader /> : (
               <div>
                 {upcomingBirthdays && upcomingBirthdays.length > 0 ? (
-                  upcomingBirthdays.map((item, index) => (
+                  upcomingBirthdays
+                  // Apply filter to upcoming birthdays
+                  .filter(item => {
+                    if (selectedFilter === 'all') return true;
+                    const isCSM = item.ht_no && item.ht_no.startsWith('245324748');
+                    return (selectedFilter === 'csm' && isCSM) || (selectedFilter === 'cse' && !isCSM);
+                  })
+                  .map((item, index) => (
                     <div 
                       className="birthday-item" 
                       key={index}

@@ -1,0 +1,256 @@
+.almanac-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1rem;
+  background: var(--card-bg);
+}
+
+.almanac-header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateX(-2px);
+}
+
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.download-button:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.almanac-header h1 {
+  font-family: var(--heading-font);
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.pdf-container {
+  width: 100%;
+  max-width: 1200px;
+  height: calc(100vh - 150px);
+  margin: 0 auto;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.pdf-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.pdf-viewer {
+  width: 100%;
+  max-width: 1200px;
+  height: calc(100vh - 150px);
+  margin: 0 auto;
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--accent-light);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spinner 0.8s linear infinite;
+}
+
+.loading-overlay p {
+  color: var(--text-secondary);
+  font-family: var(--body-font);
+}
+
+.calendar-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  z-index: 10;
+}
+
+.calendar-icon {
+  font-size: 3rem;
+  color: var(--accent);
+  animation: pulse 2s infinite;
+}
+
+.loader-message {
+  text-align: center;
+}
+
+.loader-message h3 {
+  color: var(--accent);
+  font-family: var(--heading-font);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.loader-message p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: dots 1.4s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes spinner {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dots {
+  0%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .pdf-container {
+    background: #fff; /* Keep PDF viewer background white */
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .almanac-header {
+    padding: 0.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .almanac-header h1 {
+    font-size: 1.4rem;
+    order: -1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .pdf-container {
+    height: calc(100vh - 120px);
+  }
+
+  .back-button, .download-button {
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .loader-message h3 {
+    font-size: 1.1rem;
+  }
+  
+  .loader-message p {
+    font-size: 0.85rem;
+  }
+  
+  .calendar-icon {
+    font-size: 2.5rem;
+  }
+}

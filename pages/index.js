@@ -12,6 +12,8 @@ export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const [transitionState, setTransitionState] = useState('initial');
   const [previousSearches, setPreviousSearches] = useState([]); // Initialize as empty array
+  const [showComingSoon, setShowComingSoon] = useState(false);
+  const [showBookmark, setShowBookmark] = useState(true);
 
   // Load previous searches from localStorage only on the client side
   useEffect(() => {
@@ -129,11 +131,21 @@ export default function Home() {
     document.body.appendChild(starsContainer);
   };
 
-  const SimpleLoader = () => (
-    <div className="simple-loader">
-      <p>Getting attendance data...</p>
-    </div>
-  );
+  const AttendanceLoader = () => {
+    return (
+      <div className="attendance-loader-container">
+        <div className="attendance-loader">
+          <div className="loader-section">
+            <div className="loader-bar"></div>
+            <div className="loader-bar"></div>
+            <div className="loader-bar"></div>
+            <div className="loader-bar"></div>
+          </div>
+          <p className="loader-text">Fetching your attendance...</p>
+        </div>
+      </div>
+    );
+  };
 
   const PortalPopup = ({ message, onClose }) => (
     <div className="portal-popup-overlay" onClick={onClose}>
@@ -145,6 +157,27 @@ export default function Home() {
       </div>
     </div>
   );
+
+  // Add this function to handle bookmark
+  const handleBookmark = (e) => {
+    e.preventDefault();
+    if (window.sidebar && window.sidebar.addPanel) { // Firefox
+      window.sidebar.addPanel(document.title, window.location.href, '');
+    } else if (window.external && ('AddFavorite' in window.external)) { // IE
+      window.external.AddFavorite(window.location.href, document.title);
+    } else { // Chrome, Safari, etc.
+      alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+    }
+    setShowBookmark(false);
+    localStorage.setItem('bookmarkShown', 'true');
+  };
+
+  // Check if bookmark prompt was shown before
+  useEffect(() => {
+    if (localStorage.getItem('bookmarkShown')) {
+      setShowBookmark(false);
+    }
+  }, []);
 
   return (
     <>
@@ -158,7 +191,7 @@ export default function Home() {
       <div className="page-container">
         <div className={`dashboard transition-${transitionState}`}>
           {isLoading ? (
-            <SimpleLoader />
+            <AttendanceLoader />
           ) : !attendanceData ? (
             <>
               <Header />
@@ -180,16 +213,15 @@ export default function Home() {
           )}
         </div>
 
+        
+
         {!attendanceData && (
           <>
             {/* CIE and PYQ buttons outside of attendance form container */}
-
-            
-
             <div className="extra-buttons-section">
               <button 
                 className="extra-button" 
-                onClick={() => window.open('/index.html', '_blank')}
+                onClick={() => window.open('/test.html', '_blank')}
               >
                 <i className="fas fa-clipboard-list"></i> CIE Marks
               </button>
@@ -211,32 +243,78 @@ export default function Home() {
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" 
                   fill="#FFFFFF" />
               </svg>
-              Interested in collaborating? DM me
+              Interested in collaboration? DM me
             </a>
             
             <div className="projects-showcase">
-              <h3>Check Out My Other Projects</h3>
-              <div className="projects-container">
-                <Link href="/birthday" className="project-card project-card-featured animated-border">
-                  <div className="project-status">
+              <h3>Useful Links</h3>
+              <div className="projects-classic">
+                {/* Change Link to use onClick with router.push for better handling */}
+                <div 
+                  onClick={() => window.location.href = '/birthday'} 
+                  className="project-card animated-border"
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="project-status live">
                     <span className="live-dot"></span> LIVE NOW
                   </div>
                   <div className="project-icon">
                     <i className="fas fa-cake-candles"></i>
                   </div>
-                  <div className="project-details">
-                    <h4>Birthday's Calendar </h4>
+                  <div className="project-info">
+                    <h4>Birthday's Calendar</h4>
                     <p>Never miss your class mates' birthdays!</p>
                   </div>
                   <div className="project-arrow">
                     <i className="fas fa-arrow-right"></i>
                   </div>
+                </div>
+                
+                <Link href="/academic-calendar" className="project-card">
+                  <div className="project-icon">
+                    <i className="fas fa-calendar-alt"></i>
+                  </div>
+                  <div className="project-info">
+                    <h4>Academic Calendar</h4>
+                    <p>View semester schedules, events and important dates</p>
+                  </div>
+                  <div className="project-arrow">
+                    <i className="fas fa-arrow-right"></i>
+                  </div>
                 </Link>
+
+                <div 
+                  onClick={() => setShowComingSoon(true)} 
+                  className="project-card" 
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="project-icon">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <div className="project-info">
+                    <h4>Student Community</h4>
+                    <p>Connect with your classmates and seniors</p>
+                  </div>
+                  <div className="project-arrow">
+                    <i className="fas fa-arrow-right"></i>
+                  </div>
+                </div>
               </div>
             </div>
-
-           
           </>
+        )}
+
+        {showComingSoon && (
+          <div className="coming-soon-overlay" onClick={() => setShowComingSoon(false)}>
+            <div className="coming-soon-modal" onClick={e => e.stopPropagation()}>
+              <div className="modal-icon">
+                <i className="fas fa-rocket"></i>
+              </div>
+              <h3>Coming Soon!</h3>
+              <p>We're developing the Student Community platform to centralize everything college-related. Stay tuned for updates!</p>
+              <button onClick={() => setShowComingSoon(false)}>Got it!</button>
+            </div>
+          </div>
         )}
 
         <footer className="text-center py-4 text-gray-600">
