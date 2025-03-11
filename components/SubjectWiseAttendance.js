@@ -53,7 +53,7 @@ const SubjectWiseAttendance = ({ subjects }) => {
     <div className="subjects-container">
       <div className="subject-table-container">
         <div className="timeline-header">
-          <h2>Subject-wise Attendance</h2>
+          <h2>Subject-wise </h2>
         </div>
         
         <table className="subject-compact-table">

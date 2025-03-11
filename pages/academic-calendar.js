@@ -22,7 +22,7 @@ export default function AcademicCalendar() {
           </Link>
           <h1>Academic Calendar</h1>
           <a 
-            href="https://drive.google.com/file/d/1D6HEzhk6GGU_5T4iuYSzedipzVl2P6I3/view"
+            href="https://raw.githubusercontent.com/ngit24/Attendance/main/almanac.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="download-button"
