@@ -1,5 +1,1 @@
-# NGIT Attendance Viewer
-
-## Designed by Vardan
-
-[Lets Collaborate? DM me](https://www.instagram.com/vardn.19)
+# This Site has been moved to new page: [www.ngit24.me](https://www.ngit24.me)
