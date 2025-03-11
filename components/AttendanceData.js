@@ -38,7 +38,8 @@ export default function AttendanceData({ data }) {
       animationRef.current.kill();
     }
 
-    const targetPercentage = parseFloat(data.attendance.overallattperformance.totalpercentage || 0);
+    // Ensure percentage doesn't exceed 100
+    const targetPercentage = Math.min(100, parseFloat(data.attendance.overallattperformance.totalpercentage || 0));
     
     animationRef.current = gsap.to({ value: percentageLoaded }, {
       value: targetPercentage,
