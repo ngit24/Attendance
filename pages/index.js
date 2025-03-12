@@ -238,7 +238,7 @@ export default function Home() {
         <footer className="text-center py-4 text-gray-600">
           <div className="footer-content">
             <p>
-              Designed by <span className="font-semibold" style={{ color: 'var(--accent)' }}>Vardan</span>
+              Designed by <span className="font-semibold" style={{ color: 'var(--accent)' }}>Vardan [NGIT'28]</span>
             </p>
           </div>
         </footer>
