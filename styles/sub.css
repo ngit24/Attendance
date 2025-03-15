@@ -502,8 +502,36 @@
 /* Tabular layout for subjects */
 
 .subject-table-container {
-  width: 100%;
-  overflow-x: auto;
+  background: var(--subject-bg);
+  border-radius: 16px;
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 10px rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  position: relative;
+  margin: 20px 0;
+  transition: transform 0.2s ease;
+}
+
+.subject-table-container:hover {
+  transform: translateY(-2px);
+}
+
+.subject-table-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(59, 130, 246, 0) 70%
+  );
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .subject-table {
@@ -630,10 +658,15 @@
   border-radius: 16px;
   padding: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 10px rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(75, 85, 99, 0.3);
   position: relative;
   margin: 20px 0;
+  transition: transform 0.2s ease;
+}
+
+.subject-table-container:hover {
+  transform: translateY(-2px);
 }
 
 .subject-table-container::before {
@@ -757,7 +790,7 @@
   .subject-table-container {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05), 0 0 10px rgba(59, 130, 246, 0.1);
   }
   
   .subject-compact-table thead th {

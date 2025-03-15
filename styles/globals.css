@@ -1,0 +1,297 @@
+/* Glowing container styles with thin neon outline */
+.glowing-container {
+  padding: 20px;
+  margin: 20px auto;
+  width: 96%; /* Match dashboard width */
+  max-width: 1100px; /* Match dashboard max-width */
+  border-radius: 16px;
+  background: rgba(25, 25, 35, 0.6);
+  border: 2px solid #8a2be2; /* Thin border instead of box-shadow glow */
+  box-shadow: 0 0 5px rgba(138, 43, 226, 0.8); /* Subtle neon glow effect */
+  animation: neonPulse 2s infinite alternate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes neonPulse {
+  from {
+    border-color: #8a2be2;
+    box-shadow: 0 0 5px rgba(138, 43, 226, 0.8);
+  }
+  to {
+    border-color: #ff00ff;
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.8);
+  }
+}
+
+/* Update existing cat-meme-container styles for better fit in the glowing container */
+.cat-meme-container {
+  width: 100%;
+  margin: 1rem 0;
+  text-align: center;
+  max-width: 100%; /* Allow it to fill the parent container */
+}
+
+.cat-meme-gif {
+  width: 100%;
+  max-width: 500px; /* Limit the maximum size of the GIF */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Instagram Button with Enhanced Electric Glow */
+.social-text {
+  /* Core layout and typography */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--heading-font);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  
+  /* Positioning and interaction */
+  position: relative;
+  margin: 1.5rem auto 2.5rem;
+  padding: 12px 24px;
+  cursor: pointer;
+  z-index: 1;
+  
+  /* Base styling */
+  border-radius: 50px;
+  background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+  background-size: 300% 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  
+  /* Transitions and animations */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  animation: gradientFlow 4s ease infinite;
+}
+
+/* Enhanced glowing outline layer */
+.social-text::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  z-index: -1;
+  border-radius: 54px;
+  background: linear-gradient(45deg, rgba(64, 93, 230, 0.5), rgba(225, 48, 108, 0.5));
+  filter: blur(8px) drop-shadow(0 0 10px rgba(225, 48, 108, 0.7));
+  opacity: 0.8;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Electric dashed outline layer */
+.social-text::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  z-index: -1;
+  border-radius: 56px;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  filter: drop-shadow(0 0 6px rgba(224, 20, 131, 0.9));
+  animation: electricBorder 2.5s linear infinite;
+}
+
+/* SVG icon styling */
+.social-text svg {
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover states */
+.social-text:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(193, 53, 132, 0.5);
+  filter: brightness(1.1);
+}
+
+.social-text:hover::before {
+  opacity: 1;
+  filter: blur(10px) drop-shadow(0 0 15px rgba(225, 48, 108, 1));
+}
+
+.social-text:hover::after {
+  animation-duration: 1.8s;
+  filter: drop-shadow(0 0 8px rgba(224, 20, 131, 1));
+}
+
+.social-text:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Keyframe animations */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.8; transform: scale(1); }
+}
+
+@keyframes electricBorder {
+  0% { clip-path: polygon(0 0, 100% 0, 100% 30%, 0 70%); }
+  25% { clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 70%); }
+  50% { clip-path: polygon(0 30%, 100% 30%, 100% 100%, 0 100%); }
+  75% { clip-path: polygon(0 30%, 100% 0, 100% 70%, 0 100%); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 30%, 0 70%); }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+  .social-text {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+  
+  .social-text::before {
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+  }
+  
+  .social-text::after {
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-width: 1.5px;
+  }
+}
+
+.highlight-text {
+  font-weight: 600;
+  color: #f8f8f8;
+  position: relative;
+  display: inline-block;
+  padding: 0 4px;
+}
+
+.highlight-text::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background-color: #8a2be2;
+  z-index: -1;
+  transform-origin: bottom;
+  animation: highlightPulse 3s ease-in-out infinite;
+  border-radius: 4px;
+  opacity: 0.6;
+}
+
+@keyframes highlightPulse {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.6; }
+  50% { transform: scaleY(0.8); opacity: 0.8; }
+}
+
+.typing-effect {
+  white-space: nowrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: #ffffff;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: cursorBlink 1.2s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Add this to your global styles */
+.cat-meme-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+  width: 100%; /* Take full width of parent */
+  text-align: center;
+}
+
+.cat-meme-gif {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cat-meme-caption {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.portal-popup-overlay {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.portal-popup {
+  position: relative;
+  max-width: 320px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  transform: translateY(20px);
+  animation: slideUp 0.3s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Add responsive adjustments for the glowing container */
+@media screen and (max-width: 768px) {
+  .glowing-container {
+    width: 94%;
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .glowing-container {
+    width: 96%;
+    padding: 12px;
+    margin: 15px auto;
+  }
+  
+  .cat-meme-gif {
+    max-width: 100%;
+  }
+}

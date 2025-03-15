@@ -182,7 +182,12 @@
 
 @media screen and (max-width: 480px) {
   .greeting-text { font-size: 1.5rem; }
-  #studentName { font-size: 1.5rem; }
+  #studentName {
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .greeting-card { padding: 1.5rem 1rem; }
   .card-heading { font-size: 1.4rem; }
   .percentage-circle { width: 110px; height: 110px; }

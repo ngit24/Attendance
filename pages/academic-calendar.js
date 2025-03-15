@@ -6,7 +6,7 @@ export default function AcademicCalendar() {
   const [isLoading, setIsLoading] = useState(true);
   
   // Google Drive PDF link
-  const pdfUrl = "https://drive.google.com/file/d/1D6HEzhk6GGU_5T4iuYSzedipzVl2P6I3/preview";
+  const pdfUrl = "https://drive.google.com/file/d/1z4MNySP1yyhab-u1mO9xo_ww-oE5otIs/preview";
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function AcademicCalendar() {
           </Link>
           <h1>Academic Calendar</h1>
           <a 
-            href="https://raw.githubusercontent.com/ngit24/Attendance/main/almanac.pdf"
+            href="https://raw.githubusercontent.com/ngit24/Attendance/main/almanac.jpg"
             target="_blank"
             rel="noopener noreferrer"
             className="download-button"
