@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import '../pages/_app.js'; // Assuming global styles, keep if needed
 import AttendanceData from '../components/AttendanceData';
 import InputSection from '../components/InputSection';
-import ScamWarningPopup from '../components/ScamWarningPopup';
+
 
 export default function Home() {
   const [attendanceData, setAttendanceData] = useState(null);
@@ -14,7 +14,6 @@ export default function Home() {
   const [transitionState, setTransitionState] = useState('initial');
   const [previousSearches, setPreviousSearches] = useState([]); // Initialize as empty array
   const [showBookmark, setShowBookmark] = useState(true);
-  const [showScamWarning, setShowScamWarning] = useState(true);
   const [typedName, setTypedName] = useState('');
   const fullName = 'Vardan [NGIT\'28]';
   
@@ -169,8 +168,8 @@ export default function Home() {
   };
 
   const PortalPopup = ({ message, onClose }) => (
-    <div className="portal-popup-overlay" onClick={onClose}>
-      <div className="portal-popup" onClick={e => e.stopPropagation()}>
+    <div className="portal-popup-overlay portal-popup-enter portal-popup-enter-active" onClick={onClose}>
+      <div className="portal-popup portal-popup-enter portal-popup-enter-active" onClick={e => e.stopPropagation()}>
         <p>{message}</p>
         <button className="portal-popup-close-btn" onClick={onClose}>
           Understood
@@ -191,8 +190,7 @@ export default function Home() {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
       </Head>
       <div className="page-container">
-        {/* Show the scam warning popup */}
-        {showScamWarning && <ScamWarningPopup onClose={() => setShowScamWarning(false)} />}
+       
         
         {!attendanceData && (
           <nav className="nav-bar">

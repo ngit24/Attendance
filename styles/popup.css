@@ -10,8 +10,9 @@
   align-items: center;
   justify-content: center;
   z-index: 10000;
-  opacity: 0;
-  animation: fadeIn 0.3s forwards;
+  opacity: 1;
+  animation: none; /* Remove fadeIn animation */
+  transition: opacity 0.3s ease;
 }
 
 .portal-popup {
@@ -21,9 +22,10 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transform: translateY(20px);
-  opacity: 0;
-  animation: slideUp 0.4s forwards 0.1s;
+  transform: none;
+  opacity: 1;
+  animation: none; /* Remove slideUp animation */
+  transition: transform 0.3s ease, opacity 0.3s ease;
   position: relative;
   overflow: hidden;
 }
@@ -72,6 +74,7 @@
   transform: translateY(0);
 }
 
+/* Remove the existing fadeIn and slideUp animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -86,6 +89,27 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Add a new class for mounting/unmounting */
+.portal-popup-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.portal-popup-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portal-popup-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portal-popup-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 @media (prefers-color-scheme: dark) {

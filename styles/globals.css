@@ -245,29 +245,7 @@
   color: #ffffff;
 }
 
-.portal-popup-overlay {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding: 20px;
-  z-index: 1000;
-}
 
-.portal-popup {
-  position: relative;
-  max-width: 320px;
-  padding: 1.5rem;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-  transform: translateY(20px);
-  animation: slideUp 0.3s ease forwards;
-}
 
 @keyframes slideUp {
   to {

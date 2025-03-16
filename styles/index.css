@@ -4919,3 +4919,136 @@ footer p,
 
 
 
+/* Instagram Button with Enhanced Electric Glow */
+.social-text {
+  /* Core layout and typography */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--heading-font);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  
+  /* Positioning and interaction */
+  position: relative;
+  margin: 1.5rem auto 2.5rem;
+  padding: 12px 24px;
+  cursor: pointer;
+  z-index: 1;
+  
+  /* Base styling */
+  border-radius: 50px;
+  background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+  background-size: 300% 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  
+  /* Transitions and animations */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  animation: gradientFlow 4s ease infinite;
+}
+
+/* Enhanced glowing outline layer */
+.social-text::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  z-index: -1;
+  border-radius: 54px;
+  background: linear-gradient(45deg, rgba(64, 93, 230, 0.5), rgba(225, 48, 108, 0.5));
+  filter: blur(8px) drop-shadow(0 0 10px rgba(225, 48, 108, 0.7));
+  opacity: 0.8;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Electric dashed outline layer */
+.social-text::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  z-index: -1;
+  border-radius: 56px;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  filter: drop-shadow(0 0 6px rgba(224, 20, 131, 0.9));
+  animation: electricBorder 2.5s linear infinite;
+}
+
+/* SVG icon styling */
+.social-text svg {
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover states */
+.social-text:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(193, 53, 132, 0.5);
+  filter: brightness(1.1);
+}
+
+.social-text:hover::before {
+  opacity: 1;
+  filter: blur(10px) drop-shadow(0 0 15px rgba(225, 48, 108, 1));
+}
+
+.social-text:hover::after {
+  animation-duration: 1.8s;
+  filter: drop-shadow(0 0 8px rgba(224, 20, 131, 1));
+}
+
+.social-text:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Keyframe animations */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.8; transform: scale(1); }
+}
+
+@keyframes electricBorder {
+  0% { clip-path: polygon(0 0, 100% 0, 100% 30%, 0 70%); }
+  25% { clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 70%); }
+  50% { clip-path: polygon(0 30%, 100% 30%, 100% 100%, 0 100%); }
+  75% { clip-path: polygon(0 30%, 100% 0, 100% 70%, 0 100%); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 30%, 0 70%); }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+  .social-text {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+  
+  .social-text::before {
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+  }
+  
+  .social-text::after {
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-width: 1.5px;
+  }
+}
