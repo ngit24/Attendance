@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import DaywiseAttendance from "./DaywiseAttendance";
 import SubjectWiseAttendance from "./SubjectWiseAttendance";
-import '../styles/greeting.css';
+
 import '../pages/_app.js';
 
 export default function AttendanceData({ data }) {
