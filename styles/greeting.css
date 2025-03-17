@@ -1,196 +1,454 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* Greeting Section Styles for AttendanceData */
 
-:root {
-  --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
-  --secondary-gradient: linear-gradient(135deg, #13547a, #80d0c7);
-  --card-bg: #ffffff;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --accent: #4a6cf7;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --border-radius: 16px;
-}
-
-.data-section {
-  display: none;
-  font-family: 'Comfortaa', cursive;
-  max-width: 1200px;
-  margin: 0rem auto;
-  
-}
-
-.greeting-text {
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  text-align: center;
-  margin-bottom: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#studentName {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(45deg, #4FACFE, #00F2FE);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.attendance-container {
   max-width: 100%;
-  text-shadow: 0 2px 15px rgba(79, 172, 254, 0.3);
+  margin: 0 auto;
+  padding: 0.75rem;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.time-display {
-  text-align: center;
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-  font-weight: 500;
+.attendance-dashboard {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+  opacity: 1;
+  visibility: visible;
 }
 
-.greeting-card {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Greeting Section Layout */
+.greeting-section {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 8px;
+  gap: 0;
+}
+
+/* Middle row layout */
+.middle-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+/* Bottom row layout */
+.bottom-row {
+  display: block;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+/* Card styles - Remove greeting-card */
+.attendance-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 25px;
   position: relative;
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  padding: 2.5rem;
-  box-shadow: var(--shadow);
-  margin-bottom: 2.5rem;
   overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(var(--border-rgb), 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Card Decorations - Remove greeting-card */
+.attendance-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, var(--chart-gradient-start), var(--chart-gradient-end));
+  opacity: 0.07;
+  border-radius: 0 0 0 100%;
+  z-index: 0;
+}
+
+/* Greeting Header Styles */
+.greeting-header {
+  width: 100%;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
+  gap: 2px;
+  margin-top: 0;
   align-items: center;
   text-align: center;
 }
 
-.greeting-card::before {
+.greeting-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  text-align: center;
+  width: 100%;
+}
+
+.gradient-text {
+  font-weight: 600;
+  margin: 0;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.4;
+  position: relative;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  text-align: center;
+}
+
+/* Attendance Card Styles */
+.card-heading {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.card-heading::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  margin-right: 10px;
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.percentage-circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.percentage-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: none;
+}
+
+.percentage-circle:hover {
+  transform: scale(1.05);
+  box-shadow: none;
+}
+
+.percentage-circle-inner {
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  position: relative;
+  z-index: 3;
+}
+
+/* New element for the progress arc */
+.percentage-circle::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 8px;
-  background: var(--primary-gradient);
-}
-
-.greeting-card::after {
-  content: '';
-  position: absolute;
-  bottom: -50px;
-  right: -50px;
-  width: 150px;
-  height: 150px;
+  height: 100%;
   border-radius: 50%;
-  background: var(--secondary-gradient);
-  opacity: 0.1;
-  z-index: 0;
-}
-
-.card-heading {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 1.5rem;
-  position: relative;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  box-sizing: border-box;
   z-index: 1;
 }
 
-.percentage-circle {
-  position: relative;
-  width: 150px;
-  height: 150px;
+/* Add a new pseudo-element for the progress arc */
+.percentage-circle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background: var(--primary-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0 2rem;
-  box-shadow: 0 5px 15px rgba(110, 142, 251, 0.4);
-  transition: transform 0.2s ease;
+  background: conic-gradient(
+    var(--primary-color) calc(var(--percentage) * 1%),
+    transparent 0%
+  );
+  mask: radial-gradient(transparent 62%, black 63%, black 67%, transparent 68%);
+  -webkit-mask: radial-gradient(transparent 62%, black 63%, black 67%, transparent 68%);
   z-index: 1;
 }
 
-.percentage-circle:hover {
-  transform: scale(1.05);
+#totalPercentage {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
 }
 
-.percentage-circle::before {
-  content: '';
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-  background: white;
-  border-radius: 50%;
+.percentage-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 5px;
 }
 
 .boost-effect {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 50%;
-  background: rgba(110, 142, 251, 0.3);
-  z-index: 0;
-  pointer-events: none;
-}
-
-#totalPercentage {
-  position: relative;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--accent);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(var(--primary-rgb), 0.3);
   z-index: 2;
+  opacity: 0;
+  transform: scale(0);
 }
 
+/* Enhanced Last Updated Time UI */
 #updatedOn {
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  font-style: italic;
-  margin-top: 0.5rem;
-  z-index: 1;
-  position: relative;
+  margin: 15px auto 0;
+  padding: 8px 15px;
+  background: var(--bg-input);
+  border-radius: 20px;
+  width: fit-content;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(var(--border-rgb), 0.08);
+  transition: all 0.3s ease;
+  gap: 4px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --card-bg: #2a2a2a;
-    --text-primary: #ffffff;
-    --text-secondary: #cccccc;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+#updatedOn::before {
+  content: '';
+  display: none;
+}
+
+/* Green neon dot for the updated timestamp */
+.green-neon-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #00ff4c;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px #00ff4c, 0 0 12px #00ff4c;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .attendance-container {
+    padding: 0.5rem;
+    max-width: 100%;
   }
-  .percentage-circle::before {
-    background: #2a2a2a;
+  .attendance-dashboard {
+    gap: 12px;
+  }
+  .greeting-section {
+    margin-bottom: 16px;
+    gap: 16px;
+  }
+  .middle-row {
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  .attendance-card {
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+  }
+  .greeting-text {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+  .gradient-text {
+    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+    line-height: 1.3;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .card-heading {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  .percentage-circle {
+    width: clamp(120px, 30vw, 140px);
+    height: clamp(120px, 30vw, 140px);
+  }
+  #totalPercentage {
+    font-size: clamp(1.4rem, 4vw, 1.6rem);
+  }
+  .percentage-label {
+    font-size: 0.8rem;
+  }
+  #updatedOn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    margin-top: 12px;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .greeting-text { font-size: 1.8rem; }
-  #studentName { font-size: 1.8rem; }
-  .greeting-card { padding: 2rem 1.5rem; }
-  .card-heading { font-size: 1.6rem; }
-  .percentage-circle { width: 130px; height: 130px; }
-  #totalPercentage { font-size: 1.9rem; }
-  .time-display { font-size: 1.1rem; }
+@media (max-width: 480px) {
+  .attendance-container {
+    padding: 0.25rem;
+  }
+  .attendance-dashboard {
+    gap: 10px;
+  }
+  .greeting-section {
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+  .middle-row {
+    gap: 12px;
+  }
+  .attendance-card {
+    padding: clamp(12px, 4vw, 16px);
+    border-radius: 12px;
+  }
+  .percentage-circle-container {
+    padding: 15px 0;
+  }
+  .percentage-circle {
+    width: clamp(100px, 25vw, 120px);
+    height: clamp(100px, 25vw, 120px);
+  }
+  #totalPercentage {
+    font-size: clamp(1.1rem, 3.5vw, 1.2rem);
+  }
+  .card-heading {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  .percentage-label {
+    font-size: 0.75rem;
+  }
+  #updatedOn {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    margin-top: 10px;
+  }
 }
 
-@media screen and (max-width: 480px) {
-  .greeting-text { font-size: 1.5rem; }
-  #studentName {
-    font-size: 1.2rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+@media (max-width: 360px) {
+  .attendance-container {
+    padding: 0.2rem;
   }
-  .greeting-card { padding: 1.5rem 1rem; }
-  .card-heading { font-size: 1.4rem; }
-  .percentage-circle { width: 110px; height: 110px; }
-  #totalPercentage { font-size: 1.5rem; }
-  .time-display { font-size: 1rem; }
+  .attendance-card {
+    padding: clamp(10px, 3vw, 14px);
+    border-radius: 10px;
+  }
+  .greeting-text {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+  }
+  .gradient-text {
+    font-size: clamp(1rem, 3.8vw, 1.2rem);
+    line-height: 1.25;
+  }
+  .percentage-circle {
+    width: clamp(90px, 22vw, 110px);
+    height: clamp(90px, 22vw, 110px);
+  }
+  #totalPercentage {
+    font-size: clamp(1rem, 3vw, 1.1rem);
+  }
+  .percentage-label {
+    font-size: 0.7rem;
+  }
+  #updatedOn {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    margin-top: 8px;
+  }
+  .card-heading {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+}
+
+/* Add support for ultra-small devices */
+@media (max-width: 280px) {
+  .attendance-container {
+    padding: 0.1rem;
+  }
+  .attendance-card {
+    padding: 8px;
+    border-radius: 8px;
+  }
+  .greeting-text {
+    font-size: clamp(0.85rem, 3vw, 0.9rem);
+  }
+  .gradient-text {
+    font-size: clamp(0.9rem, 3.2vw, 1rem);
+  }
+  .percentage-circle {
+    width: clamp(80px, 20vw, 90px);
+    height: clamp(80px, 20vw, 90px);
+  }
+  #totalPercentage {
+    font-size: clamp(0.9rem, 2.8vw, 1rem);
+  }
+  .percentage-label {
+    font-size: 0.65rem;
+  }
+  #updatedOn {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+    margin-top: 8px;
+  }
+  .card-heading {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
 }

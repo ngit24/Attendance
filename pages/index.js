@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Header from '../components/Header';
@@ -69,11 +69,63 @@ export default function Home() {
     } catch (error) {}
   };
 
+  // Error notification system with queue
+  const [notifications, setNotifications] = useState([]);
+  const notificationTimeoutRef = useRef(null);
+
+  const showError = (message) => {
+    // Add new notification to queue
+    setNotifications(prev => [...prev, message]);
+  };
+
+  // Process notifications queue
+  useEffect(() => {
+    const processQueue = async () => {
+      if (notifications.length > 0 && !notificationTimeoutRef.current) {
+        // Show first notification in queue
+        const currentNotification = notifications[0];
+        
+        // Clear timeout if it exists
+        if (notificationTimeoutRef.current) {
+          clearTimeout(notificationTimeoutRef.current);
+        }
+
+        // Set timeout to remove current notification
+        notificationTimeoutRef.current = setTimeout(() => {
+          setNotifications(prev => prev.slice(1));
+          notificationTimeoutRef.current = null;
+        }, 3000);
+      }
+    };
+
+    processQueue();
+
+    // Cleanup on unmount
+    return () => {
+      if (notificationTimeoutRef.current) {
+        clearTimeout(notificationTimeoutRef.current);
+      }
+    };
+  }, [notifications]);
+
+  const ErrorNotification = () => {
+    if (notifications.length === 0) return null;
+    
+    return (
+      <div key={notifications[0]} className="error-notification">
+        {notifications[0]}
+      </div>
+    );
+  };
+
   const handleSubmit = async (number) => {
     if (!number || typeof number !== 'string' || number.trim() === '') {
-      setShowPopup(true);
+      showError('Incorrect number, try again with your parents\' number.');
       return;
     }
+
+    // Don't start new request if we're already loading
+    if (isLoading) return;
 
     setIsLoading(true);
     setTransitionState('loading');
@@ -93,29 +145,57 @@ export default function Home() {
       const data = await response.json();
 
       if (data && Object.keys(data).length > 0) {
-        setTransitionState('fade-out');
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Store data first
         setAttendanceData(data);
-        setTransitionState('fade-in');
+        
+        // Update previous searches
         setPreviousSearches(prev => {
           if (prev.includes(number)) return prev;
-          const updatedSearches = [number, ...prev].slice(0, 5); // Limit to 5 entries
+          const updatedSearches = [number, ...prev].slice(0, 5);
           return updatedSearches;
         });
+
+        // Set loading to false before transition
+        setIsLoading(false);
+        
+        // Transition after a small delay
+        setTimeout(() => {
+          setTransitionState('fade-in');
+        }, 100);
       } else {
         throw new Error('Invalid response from server');
       }
     } catch (error) {
       console.error("Error:", error.message || error);
-      setShowPopup(true);
+      showError('Incorrect number, try again with your parents\' number.');
       setTransitionState('initial');
-    } finally {
       setIsLoading(false);
     }
   };
 
-  const closePopup = () => {
-    setShowPopup(false);
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (notificationTimeoutRef.current) {
+        clearTimeout(notificationTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const AttendanceLoader = () => {
+    return (
+      <div className="attendance-loader-container">
+        <div className="attendance-loader">
+          <div className="loader-section">
+            <div className="loader-bar"></div>
+            <div className="loader-bar"></div>
+            <div className="loader-bar"></div>
+            <div className="loader-bar"></div>
+          </div>
+          <p className="loader-text">Getting your attendance...</p>
+        </div>
+      </div>
+    );
   };
 
   const createStars = () => {
@@ -151,35 +231,6 @@ export default function Home() {
     document.body.appendChild(starsContainer);
   };
 
-  const AttendanceLoader = () => {
-    return (
-      <div className="attendance-loader-container">
-        <div className="attendance-loader">
-          <div className="loader-section">
-            <div className="loader-bar"></div>
-            <div className="loader-bar"></div>
-            <div className="loader-bar"></div>
-            <div className="loader-bar"></div>
-          </div>
-          <p className="loader-text">Fetching your attendance...</p>
-        </div>
-      </div>
-    );
-  };
-
-  const PortalPopup = ({ message, onClose }) => (
-    <div className="portal-popup-overlay portal-popup-enter portal-popup-enter-active" onClick={onClose}>
-      <div className="portal-popup portal-popup-enter portal-popup-enter-active" onClick={e => e.stopPropagation()}>
-        <p>{message}</p>
-        <button className="portal-popup-close-btn" onClick={onClose}>
-          Understood
-        </button>
-      </div>
-    </div>
-  );
-
-  
-
   return (
     <>
       <Head>
@@ -190,13 +241,12 @@ export default function Home() {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
       </Head>
       <div className="page-container">
-       
-        
+        <ErrorNotification />
         {!attendanceData && (
           <nav className="nav-bar">
-            <Link href="/test.html" className="nav-link">CIE Marks</Link>
+            <Link href="/test.html" className="nav-link">CIE</Link>
             <Link href="https://ngit24.github.io/pyq/" className="nav-link">PYQs</Link>
-            <Link href="/academic-calendar" className="nav-link">Almanac</Link>
+            <Link href="https://raw.githubusercontent.com/ngit24/Attendance/main/almanac.jpg" className="nav-link">Almanac</Link>
           </nav>
         )}
         <div className={`dashboard transition-${transitionState}`}>
@@ -214,70 +264,47 @@ export default function Home() {
           ) : (
             <AttendanceData data={attendanceData} />
           )}
-
-          {showPopup && (
-            <PortalPopup 
-              message="Incorrect number, try again with your parents' number." 
-              onClose={closePopup}
-            />
-          )}
         </div>
 
         {!attendanceData && (
           <>
-            <div className="glowing-container">
+            <section className="social-icons-container">
               <a 
                 href="https://instagram.com/vardn.19" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="social-text"
+                className="social-icon"
+                aria-label="Instagram"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" 
-                    fill="#FFFFFF" />
-                </svg>
-                Follow me on instagram
+                <i className="fab fa-instagram"></i>
               </a>
-              
-              <div className="cat-meme-container">
-                <img 
-                  src="https://c.tenor.com/mELlMhgtsjYAAAAd/tenor.gif" 
-                  alt="Cat saying yes please" 
-                  className="cat-meme-gif" 
-                />
-                <p className="cat-meme-caption"></p>
-              </div>
-            </div>
-            
-            <section className="links-container">
-              <h2 className="links-title">Explore My other projects</h2>
-              <div className="links-grid">
-                <Link href="/birthday" className="link-item">
-                  {true && (
-                    <span className="live-badge">
-                      <span className="live-dot"></span> LIVE
-                    </span>
-                  )}
-                  <span className="link-icon">🎂</span>
-                  <div className="link-content">
-                    <h3 className="link-heading">Birthday's Calendar</h3>
-                    <p className="link-text">Never miss your class mates' birthdays!</p>
-                  </div>
-                </Link>
-              </div>
+              <a 
+                href="https://github.com/localhost969" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="social-icon"
+                aria-label="GitHub"
+              >
+                <i className="fab fa-github"></i>
+              </a>
             </section>
+            
+            {/* Removed "Explore My other projects" section */}
           </>
         )}
-
-        <footer className="text-center py-4 text-gray-600">
-          <div className="footer-content">
-            <p>
-              Designed by <span className="highlight-text typing-effect">{typedName}<span className="cursor"></span></span>
-            </p>
-          </div>
-          
-        </footer>
       </div>
+      
+      {/* Professional footer implementation */}
+      <footer>
+        <div className="footer-content">
+          <p>
+            <span className="highlight-text">NGIT Student Tracker</span> • {new Date().getFullYear()}
+          </p>
+          <p>
+            Designed by <span className="highlight-text">{typedName}</span>
+          </p>
+        </div>
+      </footer>
     </>
   );
 }

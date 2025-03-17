@@ -1,951 +1,595 @@
-.daywise-attendance {
-  margin: 30px 0;
-  border-radius: 12px;
-  padding: 25px;
-  background-color: #ffffff;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  position: relative;
-  border: 1px solid #f0f0f0;
-}
+/* DaywiseAttendance Component Styles */
 
-.daywise-attendance::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-}
-
-.daywise-attendance h3 {
-  font-size: 1.6rem;
-  margin-bottom: 18px;
-  color: #333;
-  font-family: var(--heading-font, 'Comfortaa', cursive);
-  position: relative;
-  display: inline-block;
-}
-
-.daywise-attendance h3::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-  margin-top: 8px;
-  border-radius: 2px;
-}
-
-.attendance-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 15px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.attendance-table th,
-.attendance-table td {
-  padding: 12px 15px;
-  text-align: left;
-  vertical-align: middle;
-  border: none;
-}
-
-.attendance-table th {
-  background-color: #f8f9fa;
-  color: #3a7bd5;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid #eaeaea;
-}
-
-.attendance-table tr {
-  transition: all 0.2s ease;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.attendance-table tr:last-child {
-  border-bottom: none;
-}
-
-.attendance-table tr:hover {
-  background-color: rgba(58, 123, 213, 0.03);
-}
-
-.attendance-table .holiday {
-  background-color: rgba(255, 202, 202, 0.15);
-  position: relative;
-}
-
-.attendance-table .holiday::after {
-  content: '❉ Holiday';
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 0.75rem;
-  color: #ff6b6b;
-  font-style: italic;
-  opacity: 0.7;
-}
-
-.attendance-table td:first-child {
-  font-weight: 500;
-  color: #333;
-}
-
-.sessions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  max-width: 400px;
-}
-
-.session {
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.session:hover {
-  transform: translateY(-2px);
-}
-
-.session-0 {
-  background-color: #ff5252;
-  color: white;
-}
-
-.session-0::before {
-  content: '✕';
-  margin-right: 4px;
-  font-size: 0.7rem;
-}
-
-.session-1 {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.session-1::before {
-  content: '✓';
-  margin-right: 4px;
-}
-
-.session-2 {
-  background-color: #2196F3;
-  color: white;
-}
-
-.session-2::before {
-  content: '◆';
-  margin-right: 4px;
-  font-size: 0.7rem;
-}
-
-/* Legend for session status */
-.session-legend {
-  display: flex;
-  gap: 15px;
-  margin-top: 15px;
-  padding: 10px 15px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  font-size: 0.85rem;
-  color: #666;
-}
-
-.legend-color {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 5px;
-  display: inline-block;
-}
-
-.legend-absent {
-  background-color: #ff5252;
-}
-
-.legend-present {
-  background-color: #4CAF50;
-}
-
-.legend-other {
-  background-color: #2196F3;
-}
-
-.attendance-timeline {
-  position: relative;
-  background: #ffffff;
+.neo-timeline-container {
+  background: var(--bg-card);
   border-radius: 16px;
-  padding: 25px;
-  margin: 35px 0;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  border: 1px solid #f0f0f0;
-}
-
-/* Timeline title */
-.timeline-title {
-  font-size: 1.6rem;
-  color: #333;
-  margin-bottom: 20px;
-  font-family: var(--heading-font, 'Comfortaa', cursive);
-  position: relative;
-  display: inline-block;
-}
-
-.timeline-title::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-  margin-top: 8px;
-  border-radius: 2px;
-}
-
-/* Today's card styling */
-.today-card {
-  background: linear-gradient(150deg, rgba(58, 123, 213, 0.04), rgba(0, 210, 255, 0.04));
-  border-radius: 16px;
-  padding: 25px;
-  margin-bottom: 30px;
-  position: relative;
-  border: 1px solid #e8f0fe;
-  box-shadow: 0 8px 15px rgba(58, 123, 213, 0.07);
-}
-
-.today-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(to bottom, #3a7bd5, #00d2ff);
-  border-radius: 5px 0 0 5px;
-}
-
-.today-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  gap: 15px;
-}
-
-.today-label {
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-  color: white;
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.today-date {
-  font-size: 1.25rem;
-  color: #333;
-  font-weight: 600;
-}
-
-.holiday-badge {
-  background-color: #ff9800;
-  color: white;
-  font-size: 0.8rem;
-  padding: 4px 12px;
-  border-radius: 20px;
-  margin-left: auto;
-}
-
-.today-summary {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.attendance-indicator {
-  padding: 15px;
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-.percent-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.percent-ring {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.circular-chart {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.circle-bg {
-  fill: none;
-  stroke: #eee;
-  stroke-width: 2.8;
-}
-
-.circle {
-  fill: none;
-  stroke-width: 2.8;
-  stroke-linecap: round;
-  stroke: #3a7bd5;
-  animation: progress 1s ease-out forwards;
-}
-
-@keyframes progress {
-  0% {
-    stroke-dasharray: 0, 100;
-  }
-}
-
-.percent-value {
-  position: absolute;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #3a7bd5;
-}
-
-.attendance-stats {
-  display: flex;
-  gap: 20px;
-}
-
-.stat-item {
-  text-align: center;
-  padding: 10px 15px;
-  border-radius: 10px;
-}
-
-.stat-item.present {
-  background-color: rgba(76, 175, 80, 0.1);
-  color: #4CAF50;
-}
-
-.stat-item.absent {
-  background-color: rgba(244, 67, 54, 0.1);
-  color: #F44336;
-}
-
-.stat-value {
-  display: block;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
-.stat-label {
-  font-size: 0.85rem;
-  opacity: 0.9;
-}
-
-.sessions-container {
-  background-color: #ffffff;
-  border-radius: 12px;
+  box-shadow: var(--shadow-md);
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  border: 1px solid #f0f0f0;
-}
-
-.sessions-title {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 15px;
-}
-
-.session-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.session-pill {
-  border-radius: 30px;
-  padding: 8px 15px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.8rem;
-  transition: transform 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.session-pill:hover {
-  transform: translateY(-2px);
-}
-
-.session-pill.status-0 {
-  background-color: rgba(244, 67, 54, 0.15);
-  border: 1px solid rgba(244, 67, 54, 0.3);
-}
-
-.session-pill.status-1 {
-  background-color: rgba(76, 175, 80, 0.15);
-  border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.session-pill.status-2 {
-  background-color: rgba(158, 158, 158, 0.15);
-  border: 1px solid rgba(158, 158, 158, 0.3);
-}
-
-.session-name {
-  font-weight: 600;
-  color: #333;
-}
-
-.session-status {
-  font-size: 0.75rem;
-  margin-top: 2px;
-}
-
-.status-1 .session-status {
-  color: #4CAF50;
-}
-
-.status-0 .session-status {
-  color: #F44336;
-}
-
-.status-2 .session-status {
-  color: #757575;
-}
-
-.holiday-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.holiday-message i {
-  font-size: 2.5rem;
-  color: #FF9800;
-}
-
-.holiday-message p {
-  color: #555;
-  font-size: 1.1rem;
-}
-
-/* Past days accordion */
-.past-attendance {
-  margin-top: 40px;
-}
-
-.past-title {
-  font-size: 1.25rem;
-  color: #555;
-  margin-bottom: 20px;
   position: relative;
-  display: inline-block;
-}
-
-.past-title::after {
-  content: '';
-  display: block;
-  width: 30px;
-  height: 2.5px;
-  background: #ccc;
-  margin-top: 5px;
-}
-
-.days-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.day-item {
-  border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
-  background-color: #fff;
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  margin-bottom: 20px;
+  border: 1px solid rgba(var(--border-rgb), 0.1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.day-item.holiday {
-  border-left: 4px solid #FF9800;
-}
-
-.day-item.expanded {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-}
-
-.day-header {
+.timeline-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;  /* Changed from space-between */
   align-items: center;
-  padding: 15px 20px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.timeline-header h2::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  margin-right: 10px;
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.expand-toggle {
+  background: var(--bg-input);
+  border: none;
+  color: var(--primary-color);
   cursor: pointer;
-  background-color: #fafafa;
-  transition: background-color 0.2s ease;
-}
-
-.day-header:hover {
-  background-color: #f5f5f5;
-}
-
-.day-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  font-weight: 500;
+  padding: 8px 6px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(var(--border-rgb), 0.1);
+  margin-left: auto;  /* Added to push button to the right */
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.day-date {
-  font-weight: 600;
-  color: #333;
-}
-
-.day-holiday-tag {
-  background-color: #FF9800;
+.expand-toggle:hover {
+  background: var(--primary-color);
   color: white;
-  font-size: 0.7rem;
-  padding: 3px 8px;
-  border-radius: 4px;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
-.attendance-percent {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.percent-value {
-  font-weight: 600;
-  margin-right: 2px;
-}
-
-.percent-value.low {
-  color: #F44336;
-}
-
-.percent-value.medium {
-  color: #FF9800;
-}
-
-.percent-value.high {
-  color: #4CAF50;
-}
-
-.day-expand i {
-  font-size: 0.8rem;
-  color: #888;
+.toggle-icon {
+  margin-left: 8px;
   transition: transform 0.3s ease;
 }
 
-.expanded .day-expand i {
+.toggle-icon.expanded {
   transform: rotate(180deg);
 }
 
-.day-details {
-  padding: 20px;
-  border-top: 1px solid #eee;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.session-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 10px;
-}
-
-.session-block {
+.day-timeline {
+  margin-bottom: 15px;
   padding: 15px;
-  border-radius: 8px;
-  text-align: center;
+  border-radius: 12px;
+  background: var(--bg-input);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(var(--border-rgb), 0.08);
+}
+
+.day-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary-color);
+  opacity: 0.5;
+}
+
+.today-timeline {
+  background: linear-gradient(to right, rgba(var(--primary-rgb), 0.05), var(--bg-input));
+  border: 1px solid rgba(var(--primary-rgb), 0.1);
+}
+
+.today-timeline::before {
+  opacity: 1;
+  background: var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.timeline-day-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.session-block.status-0 {
-  background-color: rgba(244, 67, 54, 0.1);
-}
-
-.session-block.status-1 {
-  background-color: rgba(76, 175, 80, 0.1);
-}
-
-.session-block.status-2 {
-  background-color: rgba(158, 158, 158, 0.1);
-}
-
-.session-block-name {
+.day-label {
   font-weight: 600;
-  font-size: 0.85rem;
+  color: var(--text-primary);
+  position: relative;
+  padding-left: 12px;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.session-block-status i {
-  font-size: 1.2rem;
-}
-
-.status-1 .session-block-status i {
-  color: #4CAF50;
-}
-
-.status-0 .session-block-status i {
-  color: #F44336;
-}
-
-.status-2 .session-block-status i {
-  color: #757575;
-}
-
-.session-block-text {
-  font-size: 0.75rem;
-  color: #555;
-}
-
-.day-summary {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
-
-.summary-item {
-  text-align: center;
-}
-
-.summary-value {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.summary-label {
-  font-size: 0.8rem;
-  color: #666;
-}
-
-.holiday-details {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 20px;
-  background-color: rgba(255, 152, 0, 0.05);
-  border-radius: 8px;
-}
-
-.holiday-details i {
-  font-size: 1.5rem;
-  color: #FF9800;
-}
-
-.holiday-details p {
-  color: #666;
-}
-
-.update-info {
-  margin-top: 15px;
-  font-size: 0.8rem;
-  color: #888;
-  text-align: right;
-  font-style: italic;
-}
-
-/* Legend styling */
-.legend {
-  margin-top: 30px;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.legend-title {
+.day-date {
   font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 10px;
-  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 4px 10px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.legend-items {
+.timeline-sessions {
   display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-top: 10px;
+  padding-left: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 5px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.timeline-sessions::-webkit-scrollbar {
+  display: none;
+}
+
+.session-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  scroll-snap-align: start;
+}
+
+.session-dot.status-1 {
+  background: rgba(46, 196, 182, 0.15);
+  --glow-color: var(--success-color);
+}
+
+.session-dot.status-0 {
+  background: rgba(231, 29, 54, 0.15);
+  --glow-color: var(--danger-color);
+}
+
+.session-dot.status-2 {
+  background: rgba(120, 120, 120, 0.25);
+  --glow-color: #777777;
+}
+
+.dot-core {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.status-1 .dot-core {
+  background-color: var(--success-color);
+  box-shadow: 0 0 8px var(--success-color);
+}
+
+.status-0 .dot-core {
+  background-color: var(--danger-color);
+  box-shadow: 0 0 8px var(--danger-color);
+}
+
+.status-2 .dot-core {
+  background-color: #777777;
+  box-shadow: 0 0 8px rgba(120, 120, 120, 0.7);
+}
+
+.session-dot:hover {
+  transform: translateY(-3px);
+}
+
+.session-dot:hover .dot-core {
+  transform: scale(1.2);
+}
+
+.orbit-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--glow-color);
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.timeline-legend {
+  display: flex;
   flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--bg-input);
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.legend-color {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+.legend-item:hover {
+  background: var(--bg-body);
+  transform: translateY(-2px);
 }
 
-.present-color {
-  background-color: #4CAF50;
+.legend-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.absent-color {
-  background-color: #F44336;
+.past-days-container {
+  overflow: hidden;
+  margin-top: 15px;
 }
 
-.not-taken-color {
-  background-color: #9E9E9E;
-}
-
-/* No data state */
 .no-data {
-  padding: 50px 20px;
   text-align: center;
-  color: #888;
-  font-size: 1.1rem;
-  background-color: #f9f9f9;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-style: italic;
+  background: var(--bg-input);
   border-radius: 12px;
-  border: 1px dashed #ddd;
-  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-/* Responsive styles */
-@media screen and (max-width: 768px) {
-  .daywise-attendance {
-    padding: 20px 15px;
-    margin: 20px 0;
-  }
-  
-  .attendance-table th,
-  .attendance-table td {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
-  
-  .session {
-    padding: 4px 8px;
-    font-size: 0.75rem;
-  }
-  
-  .attendance-table .holiday::after {
-    position: static;
-    display: block;
-    margin-top: 5px;
-    text-align: right;
+.no-data::before {
+  content: '📊';
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.card-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, var(--chart-gradient-start), var(--chart-gradient-end));
+  opacity: 0.1;
+  border-radius: 0 0 0 100%;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .neo-timeline-container {
+    padding: clamp(12px, 3vw, 15px);
+    margin: clamp(8px, 2vw, 10px);
+    border-radius: clamp(12px, 3vw, 16px);
   }
 
-  .attendance-timeline {
-    padding: 20px 15px;
-    margin: 20px 0;
-  }
-  
-  .today-card {
-    padding: 20px;
-  }
-  
-  .today-summary {
-    flex-direction: column;
-  }
-  
-  .percent-container {
-    flex-direction: column;
-    gap: 20px;
+  .timeline-header {
+    flex-direction: row;
     align-items: center;
-  }
-  
-  .attendance-stats {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .session-block {
-    padding: 10px;
-  }
-  
-  .day-details {
-    padding: 15px;
-  }
-  
-  .day-summary {
-    flex-wrap: wrap;
-  }
-}
-
-/* Mobile layout */
-@media screen and (max-width: 576px) {
-  .attendance-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  
-  .sessions {
-    gap: 4px;
-  }
-  
-  .session {
-    padding: 3px 6px;
-    font-size: 0.7rem;
-  }
-  
-  .daywise-attendance h3 {
-    font-size: 1.3rem;
-  }
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .daywise-attendance {
-    background-color: #2a2a2a;
-    border-color: #3a3a3a;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  .attendance-table th {
-    background-color: #333;
-    color: #7db0ff;
-    border-bottom-color: #444;
-  }
-  
-  .attendance-table tr {
-    border-bottom-color: #3a3a3a;
-  }
-  
-  .attendance-table tr:hover {
-    background-color: rgba(58, 123, 213, 0.1);
-  }
-  
-  .attendance-table .holiday {
-    background-color: rgba(255, 107, 107, 0.1);
-  }
-  
-  .attendance-table td:first-child {
-    color: #eee;
-  }
-  
-  .session-legend {
-    background-color: #333;
-  }
-  
-  .legend-item {
-    color: #ccc;
+    gap: clamp(8px, 2vw, 10px);
+    margin-bottom: clamp(12px, 3vw, 15px);
   }
 
-  .attendance-timeline {
-    background-color: #2a2a2a;
-    border-color: #3a3a3a;
+  .timeline-header h2 {
+    font-size: clamp(1.1rem, 3.2vw, 1.2rem);
   }
-  
-  .timeline-title,
-  .today-date,
-  .sessions-title,
-  .past-title,
+
+  .expand-toggle {
+    padding: clamp(6px, 1.8vw, 8px) clamp(8px, 2vw, 10px);
+    font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+  }
+
+  .day-timeline {
+    padding: clamp(12px, 3vw, 15px);
+    margin-bottom: clamp(8px, 2vw, 10px);
+  }
+
+  .timeline-day-header {
+    margin-bottom: clamp(8px, 2vw, 10px);
+  }
+
+  .day-label {
+    font-size: clamp(0.9rem, 2.8vw, 0.95rem);
+  }
+
   .day-date {
-    color: #f0f0f0;
+    font-size: clamp(0.8rem, 2.5vw, 0.85rem);
+    padding: clamp(3px, 1vw, 4px) clamp(8px, 2vw, 10px);
   }
-  
-  .today-card {
-    background: linear-gradient(150deg, rgba(58, 123, 213, 0.1), rgba(0, 210, 255, 0.1));
-    border-color: #3a3a3a;
+
+  .timeline-sessions {
+    gap: clamp(6px, 1.5vw, 8px);
+    padding-left: clamp(8px, 2vw, 10px);
   }
-  
-  .sessions-container,
-  .day-item {
-    background-color: #2a2a2a;
-    border-color: #3a3a3a;
+
+  .session-dot {
+    width: clamp(28px, 8vw, 32px);
+    height: clamp(28px, 8vw, 32px);
   }
-  
-  .day-header {
-    background-color: #333;
+
+  .timeline-legend {
+    gap: 12px;
+    margin-top: 15px;
+    padding-top: 12px;
   }
-  
-  .day-header:hover {
-    background-color: #3a3a3a;
+
+  .legend-item {
+    font-size: 0.8rem;
+    padding: 5px 10px;
   }
-  
-  .attendance-indicator,
-  .session-pill {
-    background-color: rgba(42, 42, 42, 0.8);
+
+  .legend-dot {
+    width: 16px;
+    height: 16px;
   }
-  
-  .session-name {
-    color: #ddd;
+}
+
+@media (max-width: 480px) {
+  .neo-timeline-container {
+    padding: clamp(10px, 2.5vw, 12px);
+    margin: clamp(6px, 1.5vw, 8px);
+    border-radius: clamp(10px, 2.5vw, 12px);
   }
-  
-  .day-details {
-    border-color: #3a3a3a;
+
+  .timeline-header {
+    flex-direction: row; /* Changed from column */
+    justify-content: space-between; /* Added */
+    align-items: center; /* Changed from flex-start */
+    gap: clamp(6px, 1.5vw, 8px);
   }
-  
-  .day-summary,
-  .legend {
-    background-color: #333;
+
+  .timeline-header h2 {
+    font-size: clamp(1rem, 3vw, 1.1rem);
   }
-  
-  .summary-value {
-    color: #ddd;
+
+  .expand-toggle {
+    align-self: center; /* Changed from flex-end */
+    margin-left: auto; /* Added to ensure button stays right */
+    padding: clamp(4px, 1.5vw, 6px) clamp(6px, 1.8vw, 8px);
+    font-size: clamp(0.75rem, 2.3vw, 0.8rem);
   }
-  
-  .summary-label,
-  .legend-title,
-  .session-block-text {
-    color: #aaa;
+
+  .day-timeline {
+    padding: clamp(10px, 2.5vw, 12px);
+    margin-bottom: clamp(6px, 1.5vw, 8px);
   }
-  
-  .holiday-details {
-    background-color: rgba(255, 152, 0, 0.1);
+
+  .day-label {
+    font-size: clamp(0.85rem, 2.6vw, 0.9rem);
   }
-  
-  .holiday-message {
-    background-color: #2a2a2a;
+
+  .day-date {
+    font-size: clamp(0.75rem, 2.3vw, 0.8rem);
+    padding: clamp(2px, 0.8vw, 3px) clamp(6px, 1.8vw, 8px);
   }
-  
-  .holiday-message p {
-    color: #ddd;
+
+  .timeline-sessions {
+    gap: clamp(4px, 1.2vw, 6px);
+    padding-left: clamp(6px, 1.8vw, 8px);
   }
-  
-  .no-data {
-    background-color: #333;
-    border-color: #444;
-    color: #aaa;
+
+  .session-dot {
+    width: clamp(24px, 7vw, 28px);
+    height: clamp(24px, 7vw, 28px);
+  }
+
+  .timeline-legend {
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .legend-item {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .neo-timeline-container {
+    padding: clamp(8px, 2vw, 10px);
+    margin: clamp(4px, 1vw, 6px);
+    border-radius: clamp(8px, 2vw, 10px);
+  }
+
+  .timeline-header h2 {
+    font-size: clamp(0.9rem, 2.8vw, 1rem);
+  }
+
+  .expand-toggle {
+    padding: clamp(3px, 1.2vw, 4px) clamp(5px, 1.5vw, 6px);
+    font-size: clamp(0.7rem, 2.2vw, 0.75rem);
+  }
+
+  .day-timeline {
+    padding: clamp(8px, 2vw, 10px);
+    margin-bottom: clamp(4px, 1vw, 6px);
+  }
+
+  .day-label {
+    font-size: clamp(0.8rem, 2.5vw, 0.85rem);
+  }
+
+  .day-date {
+    font-size: clamp(0.7rem, 2.2vw, 0.75rem);
+  }
+
+  .session-dot {
+    width: clamp(20px, 6vw, 24px);
+    height: clamp(20px, 6vw, 24px);
+  }
+
+  .timeline-legend {
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+
+  .legend-item {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Ultra-small devices */
+@media (max-width: 280px) {
+  .neo-timeline-container {
+    padding: 6px;
+    margin: 3px;
+    border-radius: 6px;
+  }
+
+  .timeline-header h2 {
+    font-size: clamp(0.8rem, 2.5vw, 0.85rem);
+  }
+
+  .expand-toggle {
+    padding: 2px 4px;
+    font-size: clamp(0.65rem, 2vw, 0.7rem);
+  }
+
+  .day-timeline {
+    padding: 6px;
+    margin-bottom: 3px;
+  }
+
+  .day-label {
+    font-size: clamp(0.75rem, 2.3vw, 0.8rem);
+  }
+
+  .day-date {
+    font-size: clamp(0.65rem, 2vw, 0.7rem);
+    padding: 2px 5px;
+  }
+
+  .session-dot {
+    width: clamp(18px, 5.5vw, 20px);
+    height: clamp(18px, 5.5vw, 20px);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .session-dot {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .session-dot:active {
+    transform: scale(0.95);
+  }
+
+  .session-dot:active .dot-core {
+    transform: scale(1.1);
+  }
+
+  .expand-toggle:active {
+    transform: translateY(1px);
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .legend-item:active {
+    transform: translateY(1px);
+    background: var(--bg-body);
+  }
+}
+
+/* Add loading state styles */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.timeline-loading {
+  background: linear-gradient(90deg, 
+    var(--bg-input) 25%, 
+    var(--bg-secondary) 50%, 
+    var(--bg-input) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: inherit;
+}
+
+/* Enhance active states for better visual feedback */
+.today-timeline {
+  position: relative;
+  overflow: hidden;
+}
+
+.today-timeline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--primary-rgb), 0.05),
+    transparent
+  );
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  50%, 100% {
+    transform: translateX(100%);
   }
 }

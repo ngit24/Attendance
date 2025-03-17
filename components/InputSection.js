@@ -35,16 +35,22 @@ const InputSection = ({ onSubmit, isLoading, previousSearches }) => {
           autoFocus
           pattern="[0-9]*"
           inputMode="numeric"
+          maxLength="10"
+          aria-label="Parent's mobile number"
         />
-        <button type="submit" disabled={isLoading || !inputValue}>
-          Get Attendance
+        <button 
+          type="submit" 
+          disabled={isLoading || !inputValue}
+          aria-busy={isLoading}
+        >
+          {isLoading ? 'Loading...' : 'Get Attendance'}
         </button>
       </form>
       
       {previousSearches && previousSearches.length > 0 && (
         <div className="suggestions-container">
           <div className="suggestions-header">
-            <span className="suggestions-title">Suggestions</span>
+            <span className="suggestions-title">Recent Searches</span>
           </div>
           <div className="suggestions-list">
             {previousSearches.map((number, index) => (
@@ -52,6 +58,7 @@ const InputSection = ({ onSubmit, isLoading, previousSearches }) => {
                 key={index} 
                 className="suggestion-item" 
                 onClick={() => handleSuggestionClick(number)}
+                aria-label={`Search again with ${number}`}
               >
                 <i className="fas fa-history suggestion-icon"></i>
                 <span className="suggestion-text">{number}</span>
